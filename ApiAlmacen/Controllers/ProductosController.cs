@@ -43,6 +43,20 @@ namespace ApiAlmacen.Controllers
             }
         }
 
+        [Route("api/productos/{id:int}")]
+        public IHttpActionResult Delete(int id)
+        {
+            ProductosModel ProductoABuscar = DatosProductos.Find(x => x.IDProducto == id);
+            if (ProductoABuscar == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                DatosProductos.Remove(ProductoABuscar);
+                return Ok(ProductoABuscar.NombreProducto + " Ha sido eliminado");
+            }
+        }
 
     }
 }
