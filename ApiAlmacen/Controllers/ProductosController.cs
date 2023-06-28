@@ -29,5 +29,20 @@ namespace ApiAlmacen.Controllers
             return Ok(ListaProductos);
         }
 
+        [Route("api/productos/{id:int}")]
+        public IHttpActionResult Get(int id)
+        {
+            ProductosModel ProductoABuscar = DatosProductos.Find(x => x.IDProducto == id);
+            if(ProductoABuscar == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(ProductoABuscar);
+            }
+        }
+
+
     }
 }
