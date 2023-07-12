@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ApiAlmacen.Controllers
 {
-    public class GetProductosView 
+    public class GetProductsView 
     {
         public int IDProducto { get; set; }
         public string NombreProducto { get; set; }

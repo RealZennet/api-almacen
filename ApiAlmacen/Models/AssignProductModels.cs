@@ -14,7 +14,7 @@ namespace ApiAlmacen.Models
         public void Save()
         {
             this.Command.CommandText = $"INSERT INTO pertenece (id_Prod, id_Lote) VALUES ({this.IDProduct}, {this.IDLote})";
-            this.Command.ExecuteNonQuery();
+            this.Command.ExecuteNonQuery(); //controlar errors / excepeciones
         }
 
 

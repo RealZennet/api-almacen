@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace ApiAlmacen.Controllers
 {
-    public class ProductosController : ApiController
+    public class ProductsController : ApiController
     {
         [Route("api/productos")]
         public IHttpActionResult Post([FromBody] ProductosModel producto)
@@ -25,7 +25,7 @@ namespace ApiAlmacen.Controllers
         {
             ProductosModel productos = new ProductosModel();
             var listaproductos = productos.GetAllProducts();
-            var productosView = listaproductos.Select(everyProduct => new GetProductosView
+            var productosView = listaproductos.Select(everyProduct => new GetProductsView
             {
                 IDProducto = everyProduct.IDProducto,
                 NombreProducto = everyProduct.NombreProducto,
@@ -51,7 +51,7 @@ namespace ApiAlmacen.Controllers
             }
             else
             {
-                var productoView = new GetProductosView
+                var productoView = new GetProductsView
                 {
                     IDProducto = producto.IDProducto,
                     NombreProducto = producto.NombreProducto,
