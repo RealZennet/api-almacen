@@ -16,9 +16,18 @@ namespace ApiAlmacen.Controllers
             {
                 return BadRequest("Error en el ingreso de datos");
             }
-            AssignedProduct.Save();
-            return Ok($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDLote}");
+
+            try
+            {
+                AssignedProduct.Save();
+                return Ok($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDLote}");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Error en el ingreso de datos, si el error persiste contacta a un desarrollador");
+            }
         }
+
 
         [Route("api/asignacionproductos")]
         public IHttpActionResult Get()
