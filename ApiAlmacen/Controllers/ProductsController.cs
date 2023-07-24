@@ -9,7 +9,7 @@ namespace ApiAlmacen.Controllers
 {
     public class ProductsController : ApiController
     {
-        [Route("api/productos")]
+        [Route("api/v1/productos")]
         public IHttpActionResult Post([FromBody] ProductosModel producto)
         {
             if (!ModelState.IsValid || producto == null)
@@ -20,7 +20,7 @@ namespace ApiAlmacen.Controllers
             return Ok($"Producto {producto.NombreProducto} guardado con exito");
         }
 
-        [Route("api/productos")]
+        [Route("api/v1/productos")]
         public IHttpActionResult Get()
         {
             ProductosModel productos = new ProductosModel();
@@ -38,7 +38,7 @@ namespace ApiAlmacen.Controllers
             return Ok(productosView);
         }
 
-        [Route("api/productos/{id:int}")]
+        [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Get(int id)
         {
             ProductosModel productos = new ProductosModel();
@@ -63,7 +63,7 @@ namespace ApiAlmacen.Controllers
                 return Ok(productoView);
             }
         }
-        [Route("api/productos/{id:int}")]
+        [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
             ProductosModel productos = new ProductosModel();
@@ -80,7 +80,7 @@ namespace ApiAlmacen.Controllers
             }
         }
 
-        [Route("api/productos/{id:int}")]
+        [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Put(int id, [FromBody] ProductosModel producto)
         {
             if (!ModelState.IsValid || producto == null)

@@ -9,7 +9,7 @@ namespace ApiAlmacen.Controllers
 {
     public class AssignProductsController:ApiController
     {
-        [Route("api/asignacionproductos")]
+        [Route("api/v1/asignacionproductos")]
         public IHttpActionResult Post([FromBody] AssignProductModels AssignedProduct)
         {
             if (!ModelState.IsValid || AssignedProduct == null)
@@ -29,7 +29,7 @@ namespace ApiAlmacen.Controllers
         }
 
 
-        [Route("api/asignacionproductos")]
+        [Route("api/v1/asignacionproductos")]
         public IHttpActionResult Get()
         {
             AssignProductModels products = new AssignProductModels();
@@ -44,7 +44,7 @@ namespace ApiAlmacen.Controllers
             return Ok(AssignedProductsView);
         }
 
-        [Route("api/asignacionproductos/{id:int}")]
+        [Route("api/v1/asignacionproductos/{id:int}")]
         public IHttpActionResult Get(int id)
         {
             AssignProductModels products = new AssignProductModels();
@@ -66,7 +66,7 @@ namespace ApiAlmacen.Controllers
                 return Ok(AssignedProductsView);
             }
         }
-        [Route("api/asignacionproductos/{id:int}")]
+        [Route("api/v1/asignacionproductos/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
             AssignProductModels products = new AssignProductModels();

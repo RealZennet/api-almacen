@@ -9,7 +9,7 @@ namespace ApiAlmacen.Controllers
 {
     public class LotesController:ApiController
     {
-        [Route("api/lotes")]
+        [Route("api/v1/lotes")]
         public IHttpActionResult Post([FromBody] LotesModels lote)
         {
             if (!ModelState.IsValid || lote == null)
@@ -21,7 +21,7 @@ namespace ApiAlmacen.Controllers
             return Ok($"Lote {lote.IDLote} fue guardado con exito");
         }
 
-        [Route("api/lotes")]
+        [Route("api/v1/lotes")]
         public IHttpActionResult Get()
         {
             LotesModels lotes = new LotesModels();
@@ -36,7 +36,7 @@ namespace ApiAlmacen.Controllers
         }
 
 
-        [Route("api/lotes/{id:int}")]
+        [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Get(int id)
         {
             LotesModels lotes = new LotesModels();
@@ -57,7 +57,7 @@ namespace ApiAlmacen.Controllers
                 return Ok(lotsView);
             }
         }
-        [Route("api/lotes/{id:int}")]
+        [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
             LotesModels lotes = new LotesModels();
@@ -74,7 +74,7 @@ namespace ApiAlmacen.Controllers
             }
         }
 
-        [Route("api/lotes/{id:int}")]
+        [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Put(int id, [FromBody] LotesModels lote)
         {
             if (!ModelState.IsValid || lote == null)
