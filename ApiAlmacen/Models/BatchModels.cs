@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace ApiAlmacen.Models
 {
-    public class LotesModels:DatabaseConnector
+    public class BatchModels:DatabaseConnector
     {
         public int IDBatch { get; set; }
         public DateTime DateOfCreation { get; set; }
@@ -27,15 +27,15 @@ namespace ApiAlmacen.Models
         }
 
 
-        public List<LotesModels> GetAllLots()
+        public List<BatchModels> GetAllLots()
         {
             this.Command.CommandText = $"SELECT * FROM lote"; 
             this.Reader = this.Command.ExecuteReader();
 
-            List<LotesModels> result = new List<LotesModels>();
+            List<BatchModels> result = new List<BatchModels>();
             while (this.Reader.Read())
             {
-                LotesModels lote = new LotesModels();
+                BatchModels lote = new BatchModels();
                 lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
                 lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
                 lote.ProductAmountOnBatch = Int32.Parse(this.Reader["cant_Prod_Lote"].ToString());

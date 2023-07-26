@@ -10,7 +10,7 @@ namespace ApiAlmacen.Controllers
     public class ProductsController : ApiController
     {
         [Route("api/v1/productos")]
-        public IHttpActionResult Post([FromBody] ProductosModel producto)
+        public IHttpActionResult Post([FromBody] ProductModel producto)
         {
             if (!ModelState.IsValid || producto == null)
             {
@@ -23,7 +23,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos")]
         public IHttpActionResult Get()
         {
-            ProductosModel productos = new ProductosModel();
+            ProductModel productos = new ProductModel();
             var listaproductos = productos.GetAllProducts();
             var productosView = listaproductos.Select(everyProduct => new GetProductsView
             {
@@ -41,7 +41,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            ProductosModel product = new ProductosModel();
+            ProductModel product = new ProductModel();
             var productList = product.GetAllProducts();
             var selectedProduct = productList.FirstOrDefault(p => p.IDProduct == id);
 
@@ -66,7 +66,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
-            ProductosModel product = new ProductosModel();
+            ProductModel product = new ProductModel();
             var productList = product.GetAllProducts();
             var selectedProduct = productList.FirstOrDefault(everyProduct => everyProduct.IDProduct == id);
             if (selectedProduct == null)
@@ -81,7 +81,7 @@ namespace ApiAlmacen.Controllers
         }
 
         [Route("api/v1/productos/{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] ProductosModel product)
+        public IHttpActionResult Put(int id, [FromBody] ProductModel product)
         {
             if (!ModelState.IsValid || product == null)
             {

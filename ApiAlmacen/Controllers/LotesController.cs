@@ -10,7 +10,7 @@ namespace ApiAlmacen.Controllers
     public class LotesController:ApiController
     {
         [Route("api/v1/lotes")]
-        public IHttpActionResult Post([FromBody] LotesModels batch) //batch=lote
+        public IHttpActionResult Post([FromBody] BatchModels batch) //batch=lote
         {
             if (!ModelState.IsValid || batch == null)
             {
@@ -24,7 +24,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/lotes")]
         public IHttpActionResult Get()
         {
-            LotesModels batches = new LotesModels();
+            BatchModels batches = new BatchModels();
             var batchList = batches.GetAllLots();
             var batchView = batchList.Select(everyBatch => new GetLotsView
             {
@@ -39,7 +39,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            LotesModels batches = new LotesModels();
+            BatchModels batches = new BatchModels();
             var batchList = batches.GetAllLots();
             var batch = batchList.FirstOrDefault(everyBatch => everyBatch.IDBatch == id);
             if (batch == null)
@@ -60,7 +60,7 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
-            LotesModels batches = new LotesModels();
+            BatchModels batches = new BatchModels();
             var batchList = batches.GetAllLots();
             var batch = batchList.FirstOrDefault(everyBatch => everyBatch.IDBatch == id);
             if (batch == null)
@@ -75,7 +75,7 @@ namespace ApiAlmacen.Controllers
         }
 
         [Route("api/v1/lotes/{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] LotesModels batch)
+        public IHttpActionResult Put(int id, [FromBody] BatchModels batch)
         {
             if (!ModelState.IsValid || batch == null)
             {

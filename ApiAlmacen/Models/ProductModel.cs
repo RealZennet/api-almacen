@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ApiAlmacen.Models
 {
-    public class ProductosModel : DatabaseConnector
+    public class ProductModel : DatabaseConnector
     {
         public int IDProduct { get; set; }
         public string ProductName { get; set; }
@@ -37,15 +37,15 @@ namespace ApiAlmacen.Models
         }
 
 
-        public List<ProductosModel> GetAllProducts()
+        public List<ProductModel> GetAllProducts()
         {
             this.Command.CommandText = "SELECT * FROM producto";
             this.Reader = this.Command.ExecuteReader();
 
-            List<ProductosModel> result = new List<ProductosModel>();
+            List<ProductModel> result = new List<ProductModel>();
             while (this.Reader.Read())
             {
-                ProductosModel product = new ProductosModel();
+                ProductModel product = new ProductModel();
                 product.IDProduct = Int32.Parse(this.Reader["id_Prod"].ToString());
                 product.ProductName = this.Reader["nom_Prod"].ToString();
                 product.ProductWeight = Int32.Parse(this.Reader["peso_Prod"].ToString());
