@@ -17,7 +17,7 @@ namespace ApiAlmacen.Controllers
                 return BadRequest("Error en el ingreso de datos");
             }
             producto.Save();
-            return Ok($"Producto {producto.NombreProducto} guardado con exito");
+            return Ok($"Producto {producto.ProductName} guardado con exito");
         }
 
         [Route("api/v1/productos")]
@@ -27,11 +27,11 @@ namespace ApiAlmacen.Controllers
             var listaproductos = productos.GetAllProducts();
             var productosView = listaproductos.Select(everyProduct => new GetProductsView
             {
-                IDProducto = everyProduct.IDProducto,
-                NombreProducto = everyProduct.NombreProducto,
-                PesoProducto = everyProduct.PesoProducto,
-                CantidadProducto = everyProduct.CantidadProducto,
-                DescripcionProducto = everyProduct.DescripcionProducto
+                IDProduct = everyProduct.IDProduct,
+                ProductName = everyProduct.ProductName,
+                ProductWeight = everyProduct.ProductWeight,
+                ProductAmount = everyProduct.ProductAmount,
+                ProductDescription = everyProduct.ProductDescription
             }
             ).ToList();
 
@@ -41,11 +41,11 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            ProductosModel productos = new ProductosModel();
-            var listaproductos = productos.GetAllProducts();
-            var producto = listaproductos.FirstOrDefault(p => p.IDProducto == id);
+            ProductosModel product = new ProductosModel();
+            var productList = product.GetAllProducts();
+            var selectedProduct = productList.FirstOrDefault(p => p.IDProduct == id);
 
-            if (producto == null)
+            if (selectedProduct == null)
             {
                 return NotFound();
             }
@@ -53,11 +53,11 @@ namespace ApiAlmacen.Controllers
             {
                 var productoView = new GetProductsView
                 {
-                    IDProducto = producto.IDProducto,
-                    NombreProducto = producto.NombreProducto,
-                    PesoProducto = producto.PesoProducto,
-                    CantidadProducto = producto.CantidadProducto,
-                    DescripcionProducto = producto.DescripcionProducto
+                    IDProduct = selectedProduct.IDProduct,
+                    ProductName = selectedProduct.ProductName,
+                    ProductWeight = selectedProduct.ProductWeight,
+                    ProductAmount = selectedProduct.ProductAmount,
+                    ProductDescription = selectedProduct.ProductDescription
                 };
 
                 return Ok(productoView);
@@ -66,31 +66,31 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
-            ProductosModel productos = new ProductosModel();
-            var listaproductos = productos.GetAllProducts();
-            var producto = listaproductos.FirstOrDefault(everyProduct => everyProduct.IDProducto == id);
-            if (producto == null)
+            ProductosModel product = new ProductosModel();
+            var productList = product.GetAllProducts();
+            var selectedProduct = productList.FirstOrDefault(everyProduct => everyProduct.IDProduct == id);
+            if (selectedProduct == null)
             {
                 return NotFound();
             }
             else
             {
-                producto.DeleteProduct();
+                selectedProduct.DeleteProduct();
                 return Ok($"Producto con ID {id} eliminado con éxito");
             }
         }
 
         [Route("api/v1/productos/{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] ProductosModel producto)
+        public IHttpActionResult Put(int id, [FromBody] ProductosModel product)
         {
-            if (!ModelState.IsValid || producto == null)
+            if (!ModelState.IsValid || product == null)
             {
                 return BadRequest("Error en el ingreso de datos");
             }
-            producto.IDProducto = id;
-            producto.Edit();
+            product.IDProduct = id;
+            product.Edit();
 
-            return Ok($"Producto {producto.NombreProducto} editado con éxito");
+            return Ok($"Producto {product.ProductName} editado con éxito");
         }
 
 

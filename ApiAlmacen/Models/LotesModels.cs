@@ -9,19 +9,19 @@ namespace ApiAlmacen.Models
 {
     public class LotesModels:DatabaseConnector
     {
-        public int IDLote { get; set; }
-        public DateTime FechaCreacion { get; set; }
-        public int CantidadProductosEnLote { get; set; } //select by countdown a pertenece.
+        public int IDBatch { get; set; }
+        public DateTime DateOfCreation { get; set; }
+        public int ProductAmountOnBatch { get; set; } //select by countdown a pertenece.
 
         public void Save()
         {
             this.Command.CommandText = $"INSERT INTO lote (fech_Crea, cant_Prod_Lote) VALUES " +
-                $"('{this.FechaCreacion.ToString("yyyy-MM-dd HH:mm:ss")}', {this.CantidadProductosEnLote})";
+                $"('{this.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")}', {this.ProductAmountOnBatch})";
             this.Command.ExecuteNonQuery();
 
             // se obtiene el ID del lote recién insertado
             this.Command.CommandText = "SELECT last_insert_id()";
-            this.IDLote = Convert.ToInt32(this.Command.ExecuteScalar());
+            this.IDBatch = Convert.ToInt32(this.Command.ExecuteScalar());
 
             
         }
@@ -36,24 +36,24 @@ namespace ApiAlmacen.Models
             while (this.Reader.Read())
             {
                 LotesModels lote = new LotesModels();
-                lote.IDLote = Int32.Parse(this.Reader["id_Lote"].ToString());
-                lote.FechaCreacion = DateTime.Parse(this.Reader["fech_Crea"].ToString());
-                lote.CantidadProductosEnLote = Int32.Parse(this.Reader["cant_Prod_Lote"].ToString());
+                lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
+                lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
+                lote.ProductAmountOnBatch = Int32.Parse(this.Reader["cant_Prod_Lote"].ToString());
                 result.Add(lote);
             }
             return result;
         }
         public void DeleteLots()
         {
-            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDLote}";
+            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}";
             this.Command.ExecuteNonQuery();
         }
 
         public void Edit()
         {
             this.Command.CommandText = $"UPDATE lote SET " +
-                $"cant_Prod_Lote = '{this.CantidadProductosEnLote}' " +
-                $"WHERE id_Lote = {this.IDLote}";
+                $"cant_Prod_Lote = '{this.ProductAmountOnBatch}' " +
+                $"WHERE id_Lote = {this.IDBatch}";
             this.Command.ExecuteNonQuery();
         }
 

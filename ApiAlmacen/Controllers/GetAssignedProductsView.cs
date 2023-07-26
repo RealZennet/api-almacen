@@ -7,7 +7,7 @@ namespace ApiAlmacen.Controllers
 {
     public class GetAssignedProductsView
     {
-        public int IDLote { get; set; }
+        public int IDBatch { get; set; }
         public int IDProduct { get; set; }
     }
 }

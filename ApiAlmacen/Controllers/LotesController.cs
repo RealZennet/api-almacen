@@ -10,82 +10,82 @@ namespace ApiAlmacen.Controllers
     public class LotesController:ApiController
     {
         [Route("api/v1/lotes")]
-        public IHttpActionResult Post([FromBody] LotesModels lote)
+        public IHttpActionResult Post([FromBody] LotesModels batch) //batch=lote
         {
-            if (!ModelState.IsValid || lote == null)
+            if (!ModelState.IsValid || batch == null)
             {
                 return BadRequest("Error en el ingreso de datos");
             }
-            lote.FechaCreacion = DateTime.Now;
-            lote.Save();
-            return Ok($"Lote {lote.IDLote} fue guardado con exito");
+            batch.DateOfCreation = DateTime.Now;
+            batch.Save();
+            return Ok($"Lote {batch.IDBatch} fue guardado con exito");
         }
 
         [Route("api/v1/lotes")]
         public IHttpActionResult Get()
         {
-            LotesModels lotes = new LotesModels();
-            var listaLotes = lotes.GetAllLots();
-            var lotsView = listaLotes.Select(everyLot => new GetLotsView
+            LotesModels batches = new LotesModels();
+            var batchList = batches.GetAllLots();
+            var batchView = batchList.Select(everyBatch => new GetLotsView
             {
-                IDLote = everyLot.IDLote,
-                FechaCreacion = everyLot.FechaCreacion,
-                CantidadProductosEnLote = everyLot.CantidadProductosEnLote
+                IDBatches = everyBatch.IDBatch,
+                DateOfCreation = everyBatch.DateOfCreation,
+                ProductsAmountOnBatches = everyBatch.ProductAmountOnBatch
             });
-            return Ok(lotsView);
+            return Ok(batchView);
         }
 
 
         [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            LotesModels lotes = new LotesModels();
-            var listaLotes = lotes.GetAllLots();
-            var lote = listaLotes.FirstOrDefault(everyLot => everyLot.IDLote == id);
-            if (lote == null)
+            LotesModels batches = new LotesModels();
+            var batchList = batches.GetAllLots();
+            var batch = batchList.FirstOrDefault(everyBatch => everyBatch.IDBatch == id);
+            if (batch == null)
             {
                 return NotFound();
             }
             else
             {
-                var lotsView = new GetLotsView
+                var batchView = new GetLotsView
                 {
-                    IDLote = lote.IDLote,
-                    FechaCreacion = lote.FechaCreacion,
-                    CantidadProductosEnLote = lote.CantidadProductosEnLote
+                    IDBatches = batch.IDBatch,
+                    DateOfCreation = batch.DateOfCreation,
+                    ProductsAmountOnBatches = batch.ProductAmountOnBatch
                 };
-                return Ok(lotsView);
+                return Ok(batchView);
             }
         }
         [Route("api/v1/lotes/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
-            LotesModels lotes = new LotesModels();
-            var listaLotes = lotes.GetAllLots();
-            var lote = listaLotes.FirstOrDefault(everyLot => everyLot.IDLote == id);
-            if (lote == null)
+            LotesModels batches = new LotesModels();
+            var batchList = batches.GetAllLots();
+            var batch = batchList.FirstOrDefault(everyBatch => everyBatch.IDBatch == id);
+            if (batch == null)
             {
                 return NotFound();
             }
             else
             {
-                lote.DeleteLots();
-                return Ok($"El lote con el id {lote.IDLote} fue eliminado con exito");
+                batch.DeleteLots();
+                return Ok($"El lote con el id {batch.IDBatch} fue eliminado con exito");
             }
         }
 
         [Route("api/v1/lotes/{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] LotesModels lote)
+        public IHttpActionResult Put(int id, [FromBody] LotesModels batch)
         {
-            if (!ModelState.IsValid || lote == null)
+            if (!ModelState.IsValid || batch == null)
             {
                 return BadRequest("Error en el ingreso de datos");
             }
 
-            lote.IDLote = id;
-            lote.Edit();
+            batch.IDBatch = id;
+            batch.Edit();
 
-            return Ok($"Producto {lote.IDLote} editado con éxito");
+            return Ok($"Producto {batch.IDBatch} editado con éxito");
         }
 
     }

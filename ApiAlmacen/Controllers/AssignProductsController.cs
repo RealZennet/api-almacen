@@ -38,7 +38,7 @@ namespace ApiAlmacen.Controllers
             var AssignedProductsView = assignedProductsList.Select(everyProduct => new GetAssignedProductsView
             {
                 IDProduct = everyProduct.IDProduct,
-                IDLote = everyProduct.IDLote,
+                IDBatch = everyProduct.IDLote,
             }).ToList();
 
             return Ok(AssignedProductsView);
@@ -60,7 +60,7 @@ namespace ApiAlmacen.Controllers
                 var AssignedProductsView = new GetAssignedProductsView
                 {
                     IDProduct = AssignedProductsSearch.IDProduct,
-                    IDLote = AssignedProductsSearch.IDLote,
+                    IDBatch = AssignedProductsSearch.IDLote,
                 };
 
                 return Ok(AssignedProductsView);
