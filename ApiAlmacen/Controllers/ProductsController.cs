@@ -10,22 +10,22 @@ namespace ApiAlmacen.Controllers
     public class ProductsController : ApiController
     {
         [Route("api/v1/productos")]
-        public IHttpActionResult Post([FromBody] ProductModel producto)
+        public IHttpActionResult Post([FromBody] ProductModel product)
         {
-            if (!ModelState.IsValid || producto == null)
+            if (!ModelState.IsValid || product == null)
             {
                 return BadRequest("Error en el ingreso de datos");
             }
-            producto.Save();
-            return Ok($"Producto {producto.ProductName} guardado con exito");
+            product.Save();
+            return Ok($"Producto {product.ProductName} guardado con exito");
         }
 
         [Route("api/v1/productos")]
         public IHttpActionResult Get()
         {
-            ProductModel productos = new ProductModel();
-            var listaproductos = productos.GetAllProducts();
-            var productosView = listaproductos.Select(everyProduct => new GetProductsView
+            ProductModel products = new ProductModel();
+            var listproducts = products.GetAllProducts();
+            var productosView = listproducts.Select(everyProduct => new GetProductsView
             {
                 IDProduct = everyProduct.IDProduct,
                 ProductName = everyProduct.ProductName,

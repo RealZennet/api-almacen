@@ -24,15 +24,22 @@ namespace ApiAlmacen.Controllers
             this.dbPassword = "zackquack";
             this.dbDatabaseName = "quickCarryApiTesting";
 
-            this.Connection = new MySqlConnection(
-                $"server={this.dbip};" +
-                $"user={this.dbUser};" +
-                $"password={this.dbPassword};" +
-                $"database={this.dbDatabaseName};");
+            try
+            {
+                this.Connection = new MySqlConnection(
+                    $"server={this.dbip};" +
+                    $"user={this.dbUser};" +
+                    $"password={this.dbPassword};" +
+                    $"database={this.dbDatabaseName};");
 
-            this.Connection.Open();
-            this.Command = new MySqlCommand();
-            this.Command.Connection = this.Connection;
+                this.Connection.Open(); //Al connection pools are in use. error crash.
+                this.Command = new MySqlCommand();
+                this.Command.Connection = this.Connection;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Error al abrir la conexión: " + ex.Message);
+            }
         }
 
     }

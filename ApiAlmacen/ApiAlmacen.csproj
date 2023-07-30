@@ -181,10 +181,10 @@
     <Compile Include="Controllers\AssignProductsController.cs" />
     <Compile Include="Controllers\DatabaseConnector.cs" />
     <Compile Include="Controllers\GetAssignedProductsView.cs" />
-    <Compile Include="Controllers\GetLotsView.cs" />
+    <Compile Include="Controllers\GetBatchsView.cs" />
     <Compile Include="Controllers\GetProductsView.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LotesController.cs" />
+    <Compile Include="Controllers\BatchsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

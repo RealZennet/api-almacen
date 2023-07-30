@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ApiAlmacen.Controllers
 {
-    public class GetLotsView
+    public class GetBatchsView
     {
         public int IDBatches { get; set; }
         public int ProductsAmountOnBatches { get; set; }

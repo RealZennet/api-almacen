@@ -23,7 +23,6 @@ namespace ApiAlmacen.Models
             this.Command.CommandText = "SELECT last_insert_id()";
             this.IDBatch = Convert.ToInt32(this.Command.ExecuteScalar());
 
-            
         }
 
 
@@ -41,6 +40,7 @@ namespace ApiAlmacen.Models
                 lote.ProductAmountOnBatch = Int32.Parse(this.Reader["cant_Prod_Lote"].ToString());
                 result.Add(lote);
             }
+            this.Reader.Close();
             return result;
         }
         public void DeleteLots()

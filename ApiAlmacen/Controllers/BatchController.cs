@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace ApiAlmacen.Controllers
 {
-    public class LotesController:ApiController
+    public class BatchController : ApiController
     {
         [Route("api/v1/lotes")]
         public IHttpActionResult Post([FromBody] BatchModels batch) //batch=lote
