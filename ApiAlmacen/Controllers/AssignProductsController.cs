@@ -20,7 +20,7 @@ namespace ApiAlmacen.Controllers
             try
             {
                 AssignedProduct.Save();
-                return Ok($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDLote}");
+                return Ok($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDBatch}");
             }
             catch (Exception)
             {
@@ -38,7 +38,7 @@ namespace ApiAlmacen.Controllers
             var AssignedProductsView = assignedProductsList.Select(everyProduct => new GetAssignedProductsView
             {
                 IDProduct = everyProduct.IDProduct,
-                IDBatch = everyProduct.IDLote,
+                IDBatch = everyProduct.IDBatch,
             }).ToList();
 
             return Ok(AssignedProductsView);
@@ -60,7 +60,7 @@ namespace ApiAlmacen.Controllers
                 var AssignedProductsView = new GetAssignedProductsView
                 {
                     IDProduct = AssignedProductsSearch.IDProduct,
-                    IDBatch = AssignedProductsSearch.IDLote,
+                    IDBatch = AssignedProductsSearch.IDBatch,
                 };
 
                 return Ok(AssignedProductsView);

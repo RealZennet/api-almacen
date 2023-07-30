@@ -45,7 +45,7 @@ namespace ApiAlmacen.Models
         }
         public void DeleteLots()
         {
-            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}";
+            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}"; //no se puede eliminar lote si esta vinculado a un producto.
             this.Command.ExecuteNonQuery();
         }
 

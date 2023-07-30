@@ -193,6 +193,7 @@
     <Compile Include="Models\AssignProductModels.cs" />
     <Compile Include="Models\BatchModels.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\TruckerCarriesBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
