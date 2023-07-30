@@ -13,10 +13,18 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO llevan (id_Cam, id_Lote) VALUES (" +
-                $"{this.IDTruck}, " +
-                $"{this.IDBatch} )";
-            this.Command.ExecuteNonQuery();
+            try // Controlar excepcion para evitar duplicados
+            {
+                this.Command.CommandText = $"INSERT INTO llevan (id_Cam, id_Lote) VALUES (" +
+                    $"{this.IDTruck}, " +
+                    $"{this.IDBatch} )";
+                this.Command.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+
+            }
+
         }
 
         public void DeleteCarries()

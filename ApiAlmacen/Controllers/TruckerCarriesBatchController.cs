@@ -35,5 +35,28 @@ namespace ApiAlmacen.Controllers
             return Ok(carriesView);
         }
 
+        [Route("api/v1/camionllevalotes/{id:int}")]
+        public IHttpActionResult Get(int id)
+        {
+            TruckerCarriesBatchModel carries = new TruckerCarriesBatchModel();
+            var carriesList = carries.GetAllCarries();
+            var selectedCarrie = carriesList.FirstOrDefault(everyCarrie => everyCarrie.IDTruck == id);
+
+            if (selectedCarrie == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var carrieView = new GetTruckersCarriesBatchView
+                {
+                    IDTruck = selectedCarrie.IDTruck,
+                    IDBatch = selectedCarrie.IDBatch
+                };
+
+                return Ok(carrieView);
+            }
+        }
+
     }
 }

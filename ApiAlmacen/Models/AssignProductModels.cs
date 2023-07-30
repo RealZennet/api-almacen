@@ -39,6 +39,7 @@ namespace ApiAlmacen.Models
             this.Command.ExecuteNonQuery();
         }
 
+        //getoneassigned
 
     }
 }
