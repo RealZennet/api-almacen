@@ -183,9 +183,11 @@
     <Compile Include="Controllers\GetAssignedProductsView.cs" />
     <Compile Include="Controllers\GetBatchsView.cs" />
     <Compile Include="Controllers\GetProductsView.cs" />
+    <Compile Include="Controllers\GetTruckersCarriesBatchView.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\BatchsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\TruckerCarriesBatchController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,7 +195,7 @@
     <Compile Include="Models\AssignProductModels.cs" />
     <Compile Include="Models\BatchModels.cs" />
     <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\TruckerCarriesBatch.cs" />
+    <Compile Include="Models\TruckerCarriesBatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
