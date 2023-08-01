@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using MySqlConnector;
 
-namespace ApiAlmacen.Controllers
+namespace ApiAlmacen.Models
 {
     public abstract class DatabaseConnector
     {
