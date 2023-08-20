@@ -9,15 +9,23 @@ namespace ApiAlmacen.Controllers
 {
     public class ProductsController : ApiController
     {
+        private Dictionary<string, string> showResult(string message)
+        {
+            Dictionary<string, string> resultJson = new Dictionary<string, string>();
+            resultJson.Add("Accion realizada con exito: ", message);
+            return resultJson;
+        }
+
         [Route("api/v1/productos")]
         public IHttpActionResult Post([FromBody] ProductModel product)
         {
             if (!ModelState.IsValid || product == null)
             {
-                return BadRequest("Error en el ingreso de datos");
+                var errorResponse = $"Error en el ingreso de datos con {product.ProductName}.";
+                return BadRequest(errorResponse.ToString());
             }
             product.Save();
-            return Ok($"Producto {product.ProductName} guardado con exito");
+            return Ok(showResult(product.ProductName));
         }
 
         [Route("api/v1/productos")]
@@ -76,7 +84,7 @@ namespace ApiAlmacen.Controllers
             else
             {
                 selectedProduct.DeleteProduct();
-                return Ok($"Producto con ID {id} eliminado con éxito");
+                return Ok(showResult(id.ToString()));
             }
         }
 
@@ -85,12 +93,13 @@ namespace ApiAlmacen.Controllers
         {
             if (!ModelState.IsValid || product == null)
             {
-                return BadRequest("Error en el ingreso de datos");
+                var errorResponse = $"Error en el ingreso de datos con {id}.";
+                return BadRequest(errorResponse.ToString());
             }
             product.IDProduct = id;
             product.Edit();
 
-            return Ok($"Producto {product.ProductName} editado con éxito");
+            return Ok(showResult(id.ToString()));
         }
 
 

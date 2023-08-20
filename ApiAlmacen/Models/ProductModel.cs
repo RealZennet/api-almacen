@@ -9,10 +9,15 @@ namespace ApiAlmacen.Models
 {
     public class ProductModel : DatabaseConnector
     {
+
         public int IDProduct { get; set; }
+        [Required]
         public string ProductName { get; set; }
+        [Required]
         public string ProductDescription { get; set; }
+        [Required]
         public int ProductWeight { get; set; }
+        [Required]
         public int ProductAmount { get; set; }
 
         public void Save()

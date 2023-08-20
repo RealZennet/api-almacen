@@ -32,7 +32,7 @@ namespace ApiAlmacen.Models
                     $"password={this.dbPassword};" +
                     $"database={this.dbDatabaseName};");
 
-                this.Connection.Open(); //Al connection pools are in use. error crash.
+                this.Connection.Open();
                 this.Command = new MySqlCommand();
                 this.Command.Connection = this.Connection;
             }
