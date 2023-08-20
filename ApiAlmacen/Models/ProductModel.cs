@@ -44,8 +44,7 @@ namespace ApiAlmacen.Models
 
             if (result != null && result != DBNull.Value)
             {
-                int rowCount;
-                if (int.TryParse(result.ToString(), out rowCount))
+                if (int.TryParse(result.ToString(), out int rowCount))
                 {
                     return rowCount > 0;
                 }
