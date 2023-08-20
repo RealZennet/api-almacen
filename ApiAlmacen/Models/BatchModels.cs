@@ -1,4 +1,5 @@
 ﻿using ApiAlmacen.Controllers;
+using ApiAlmacen.Controllers.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,16 +46,39 @@ namespace ApiAlmacen.Models
         }
         public void DeleteLots()
         {
-            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}"; //no se puede eliminar lote si esta vinculado a un producto.
+            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}"; 
             this.Command.ExecuteNonQuery();
+        }
+
+        public bool CheckIfBatchExists(int id)
+        {
+            this.Command.CommandText = $"SELECT COUNT(*) FROM lote WHERE id_Lote = {id}";
+            object result = this.Command.ExecuteScalar();
+
+            if(result != null && result != DBNull.Value)
+            {
+                if (int.TryParse(result.ToString(), out int rowCount))
+                {
+                    return rowCount > 0;
+                }
+            }
+            return false;
         }
 
         public void Edit()
         {
+            bool productExists = CheckIfBatchExists(this.IDBatch);
+
+            if(productExists == true) { 
             this.Command.CommandText = $"UPDATE lote SET " +
                 $"cant_Prod_Lote = '{this.ProductAmountOnBatch}' " +
                 $"WHERE id_Lote = {this.IDBatch}";
             this.Command.ExecuteNonQuery();
+            }
+            else
+            {
+                throw new BatchNotFoundException(this.IDBatch);
+            }
         }
 
 

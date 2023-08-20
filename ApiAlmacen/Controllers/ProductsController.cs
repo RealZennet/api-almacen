@@ -107,7 +107,7 @@ namespace ApiAlmacen.Controllers
             }
             catch (ProductNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message); //json
             }
         }
 

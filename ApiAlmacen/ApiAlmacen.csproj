@@ -179,7 +179,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AssignProductsController.cs" />
-    <Compile Include="Controllers\Handlers\ErrorHandlerNotFound.cs" />
+    <Compile Include="Controllers\Handlers\ErrorHandlerBatchNotFound.cs" />
+    <Compile Include="Controllers\Handlers\ErrorHandlerProductNotFound.cs" />
     <Compile Include="Models\DatabaseConnector.cs" />
     <Compile Include="Controllers\GetAssignedProductsView.cs" />
     <Compile Include="Controllers\GetBatchsView.cs" />
