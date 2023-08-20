@@ -12,8 +12,10 @@ namespace ApiAlmacen.Models
 
         public int IDProduct { get; set; }
         [Required]
+        [StringLength(30, ErrorMessage = "El nombre del producto debe tener un máximo de 30 caracteres.")]
         public string ProductName { get; set; }
         [Required]
+        [StringLength(30, ErrorMessage = "La descripcion del producto debe tener un máximo de 100 caracteres.")]
         public string ProductDescription { get; set; }
         [Required]
         public int ProductWeight { get; set; }
@@ -22,12 +24,15 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
+            try { 
             this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, cant_Prod, desc_Prod) VALUES(" +
                $"'{this.ProductName}', " +
                $"{this.ProductWeight}, " +
                $"{this.ProductAmount}, " +
                $"'{this.ProductDescription}')";
-            this.Command.ExecuteNonQuery(); //Controlar excepciones, como nombres muy largos o numeros, etc.
+            this.Command.ExecuteNonQuery();
+            }
+            catch(Exception){}
         }
 
         public void Edit()
