@@ -1,4 +1,5 @@
 ﻿using ApiAlmacen.Controllers;
+using ApiAlmacen.Controllers.Handlers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -35,15 +36,43 @@ namespace ApiAlmacen.Models
             catch(Exception){}
         }
 
+
+        public bool CheckIfProductExists(int id)
+        {
+            this.Command.CommandText = $"SELECT COUNT(*) FROM producto WHERE id_Prod = {id}";
+            object result = this.Command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                int rowCount;
+                if (int.TryParse(result.ToString(), out rowCount))
+                {
+                    return rowCount > 0;
+                }
+            }
+
+            return false;
+        }
+
         public void Edit()
         {
-            this.Command.CommandText = $"UPDATE producto SET " +
-                $"nom_Prod = '{this.ProductName}', " +
-                $"peso_Prod = {this.ProductWeight}, " +
-                $"cant_Prod = {this.ProductAmount}, " +
-                $"desc_Prod = '{this.ProductDescription}' " +
-                $"WHERE id_Prod = {this.IDProduct}";
-            this.Command.ExecuteNonQuery();
+            
+            bool productExists = CheckIfProductExists(this.IDProduct);
+
+            if (productExists == true)
+            {
+                this.Command.CommandText = $"UPDATE producto SET " +
+                    $"nom_Prod = '{this.ProductName}', " +
+                    $"peso_Prod = {this.ProductWeight}, " +
+                    $"cant_Prod = {this.ProductAmount}, " +
+                    $"desc_Prod = '{this.ProductDescription}' " +
+                    $"WHERE id_Prod = {this.IDProduct}";
+                this.Command.ExecuteNonQuery();
+            }
+            else
+            {
+                throw new ProductNotFoundException(this.IDProduct);
+            }
         }
 
 

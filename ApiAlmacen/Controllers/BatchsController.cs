@@ -9,16 +9,24 @@ namespace ApiAlmacen.Controllers
 {
     public class BatchsController:ApiController
     {
+        private Dictionary<string, string> showResult(string message)
+        {
+            Dictionary<string, string> resultJson = new Dictionary<string, string>();
+            resultJson.Add("Accion realizada con exito: ", message);
+            return resultJson;
+        }
+
         [Route("api/v1/lotes")]
-        public IHttpActionResult Post([FromBody] BatchModels batch) //batch=lote
+        public IHttpActionResult Post([FromBody] BatchModels batch) 
         {
             if (!ModelState.IsValid || batch == null)
             {
-                return BadRequest("Error en el ingreso de datos");
+                var errorResponse = $"Error, revisa los datos ingresados.";
+                return BadRequest(errorResponse.ToString());
             }
             batch.DateOfCreation = DateTime.Now;
             batch.Save();
-            return Ok($"Lote {batch.IDBatch} fue guardado con exito");
+            return Ok(showResult($"Lote {batch.IDBatch.ToString()} guardado"));
         }
 
         [Route("api/v1/lotes")]
@@ -70,7 +78,7 @@ namespace ApiAlmacen.Controllers
             else
             {
                 batch.DeleteLots();
-                return Ok($"El lote con el id {batch.IDBatch} fue eliminado con exito");
+                return Ok(showResult($"El lote con el id {batch.IDBatch} fue eliminado con exito"));
             }
         }
 
@@ -79,13 +87,14 @@ namespace ApiAlmacen.Controllers
         {
             if (!ModelState.IsValid || batch == null)
             {
-                return BadRequest("Error en el ingreso de datos");
+                var errorResponse = $"Error con el lote {batch.IDBatch}";
+                return BadRequest(errorResponse.ToString());
             }
 
             batch.IDBatch = id;
             batch.Edit();
 
-            return Ok($"Producto {batch.IDBatch} editado con éxito");
+            return Ok(showResult($"Producto {batch.IDBatch} editado con éxito"));
         }
 
     }

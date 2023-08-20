@@ -1,4 +1,5 @@
-﻿using ApiAlmacen.Models;
+﻿using ApiAlmacen.Controllers.Handlers;
+using ApiAlmacen.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,15 +92,23 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Put(int id, [FromBody] ProductModel product)
         {
-            if (!ModelState.IsValid || product == null)
+            try
             {
-                var errorResponse = $"Error en el ingreso de datos con {id}.";
-                return BadRequest(errorResponse.ToString());
-            }
-            product.IDProduct = id;
-            product.Edit();
+                if (!ModelState.IsValid || product == null)
+                {
+                    var errorResponse = $"Error en el ingreso de datos con {id}.";
+                    return BadRequest(errorResponse.ToString());
+                }
 
-            return Ok(showResult(id.ToString()));
+                product.IDProduct = id;
+                product.Edit();
+
+                return Ok(showResult(id.ToString()));
+            }
+            catch (ProductNotFoundException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
