@@ -9,18 +9,28 @@ namespace ApiAlmacen.Controllers
 {
     public class AssignProductsController:ApiController
     {
+
+        private Dictionary<string, string> showResult(string message)
+        {
+            Dictionary<string, string> resultJson = new Dictionary<string, string>();
+            resultJson.Add("Accion realizada con exito: ", message);
+            return resultJson;
+        }
+
         [Route("api/v1/asignacionproductos")]
         public IHttpActionResult Post([FromBody] AssignProductModels AssignedProduct)
         {
             if (!ModelState.IsValid || AssignedProduct == null)
             {
-                return BadRequest("Error en el ingreso de datos");
+                var errorResponse = $"Error en el ingreso de datos con el id {AssignedProduct.IDBatch} y " +
+                    $"{AssignedProduct.IDProduct}";
+                return BadRequest(errorResponse.ToString());
             }
 
             try
             {
                 AssignedProduct.Save();
-                return Ok($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDBatch}");
+                return Ok(showResult($"Producto {AssignedProduct.IDProduct} fue asignado correctamente al lote {AssignedProduct.IDBatch}"));
             }
             catch (Exception)
             {
@@ -34,6 +44,10 @@ namespace ApiAlmacen.Controllers
         {
             AssignProductModels products = new AssignProductModels();
             var assignedProductsList = products.getAllAsignedProducts();
+            if (assignedProductsList == null || !assignedProductsList.Any())
+            {
+                return NotFound();
+            }
 
             var AssignedProductsView = assignedProductsList.Select(everyProduct => new GetAssignedProductsView
             {
@@ -79,7 +93,7 @@ namespace ApiAlmacen.Controllers
             else
             {
                 productAssigned.Delete();
-                return Ok($"Producto con ID {id} eliminado con éxito");
+                return Ok(showResult($"Producto con ID {id} eliminado con éxito"));
             }
         }
 
