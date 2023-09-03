@@ -13,7 +13,7 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO pertenece (id_Prod, id_Lote) VALUES ({this.IDProduct}, {this.IDBatch})";
+            this.Command.CommandText = $"INSERT INTO integra (id_Prod, id_Lote) VALUES ({this.IDProduct}, {this.IDBatch})";
             this.Command.ExecuteNonQuery(); //controlar errors / excepeciones
         }
 
