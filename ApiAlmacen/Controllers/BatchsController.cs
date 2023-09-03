@@ -83,30 +83,6 @@ namespace ApiAlmacen.Controllers
             }
         }
 
-        [Route("api/v1/lotes/{id:int}")]
-        public IHttpActionResult Put(int id, [FromBody] BatchModels batch)
-        {
-            try
-            {
-
-            
-            if (!ModelState.IsValid || batch == null)
-            {
-                var errorResponse = $"Error con el lote {batch.IDBatch}";
-                return BadRequest(errorResponse.ToString());
-            }
-
-            batch.IDBatch = id;
-            batch.Edit();
-
-            return Ok(showResult($"Producto {batch.IDBatch} editado con éxito"));
-            }
-            catch (BatchNotFoundException ex)
-            {
-                return BadRequest(ex.Message.ToString());
-            }
-        }
-
 
     }
 }

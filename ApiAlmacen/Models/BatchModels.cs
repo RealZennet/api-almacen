@@ -65,22 +65,6 @@ namespace ApiAlmacen.Models
             return false;
         }
 
-        public void Edit()
-        {
-            bool productExists = CheckIfBatchExists(this.IDBatch);
-
-            if(productExists == true) { 
-            this.Command.CommandText = $"UPDATE lote SET " +
-                $"cant_Prod_Lote = '{this.ProductAmountOnBatch}' " +
-                $"WHERE id_Lote = {this.IDBatch}";
-            this.Command.ExecuteNonQuery();
-            }
-            else
-            {
-                throw new BatchNotFoundException(this.IDBatch);
-            }
-        }
-
 
     }
 }

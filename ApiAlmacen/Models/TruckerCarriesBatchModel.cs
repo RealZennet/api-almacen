@@ -20,7 +20,7 @@ namespace ApiAlmacen.Models
                     $"{this.IDBatch} )";
                 this.Command.ExecuteNonQuery();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
 
             }
