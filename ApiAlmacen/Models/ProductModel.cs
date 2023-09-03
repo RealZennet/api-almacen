@@ -22,18 +22,17 @@ namespace ApiAlmacen.Models
         public int ProductWeight { get; set; }
         [Required]
         public bool ActivatedProduct { get; set; }
+        public int Volume { get; set; }
 
         public void Save()
         {
-            try { 
-            this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, bajalogica, desc_Prod) VALUES(" +
+            this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, bajalogica, desc_Prod, volumen) VALUES(" +
                $"'{this.ProductName}', " +
                $"{this.ProductWeight}, " +
                $"{this.ActivatedProduct}, " +
-               $"'{this.ProductDescription}')";
+               $"'{this.ProductDescription}'," +
+               $"{this.Volume})";
             this.Command.ExecuteNonQuery();
-            }
-            catch(Exception){}
         }
 
 
@@ -63,9 +62,10 @@ namespace ApiAlmacen.Models
                 this.Command.CommandText = $"UPDATE producto SET " +
                     $"nom_Prod = '{this.ProductName}', " +
                     $"peso_Prod = {this.ProductWeight}, " +
-                    $"cant_Prod = {this.ActivatedProduct}, " +
-                    $"desc_Prod = '{this.ProductDescription}' " +
-                    $"WHERE id_Prod = {this.IDProduct}";
+                    $"bajalogica = {this.ActivatedProduct}, " +
+                    $"desc_Prod = '{this.ProductDescription}', " +
+                    $"volumen = {this.Volume} " +
+                    $"WHERE id_prod = {this.IDProduct}";
                 this.Command.ExecuteNonQuery();
             }
             else
@@ -84,11 +84,12 @@ namespace ApiAlmacen.Models
             while (this.Reader.Read())
             {
                 ProductModel product = new ProductModel();
-                product.IDProduct = Int32.Parse(this.Reader["id_Prod"].ToString());
+                product.IDProduct = Int32.Parse(this.Reader["id_prod"].ToString());
                 product.ProductName = this.Reader["nom_Prod"].ToString();
                 product.ProductWeight = Int32.Parse(this.Reader["peso_Prod"].ToString());
                 product.ActivatedProduct = Convert.ToBoolean(this.Reader["bajalogica"].ToString());
                 product.ProductDescription = this.Reader["desc_Prod"].ToString();
+                product.Volume = Int32.Parse(this.Reader["volumen"].ToString());
                 result.Add(product);
             }
             this.Reader.Close();
@@ -96,8 +97,10 @@ namespace ApiAlmacen.Models
         }
         public void DeleteProduct()
         {
-            this.Command.CommandText = $"DELETE FROM producto WHERE id_Prod = {this.IDProduct}";
+            this.Command.CommandText = $"DELETE FROM producto WHERE id_prod = {this.IDProduct}";
             this.Command.ExecuteNonQuery();
         }
+
+        //Agregar baja logica
     }
 }

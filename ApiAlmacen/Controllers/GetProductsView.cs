@@ -12,5 +12,6 @@ namespace ApiAlmacen.Controllers
         public int ProductWeight { get; set; }
         public bool ActivatedProduct { get; set; }
         public string ProductDescription { get; set; }
+        public int Volume { get; set; }
     }
 }

@@ -40,7 +40,8 @@ namespace ApiAlmacen.Controllers
                 ProductName = everyProduct.ProductName,
                 ProductWeight = everyProduct.ProductWeight,
                 ActivatedProduct = everyProduct.ActivatedProduct,
-                ProductDescription = everyProduct.ProductDescription
+                ProductDescription = everyProduct.ProductDescription,
+                Volume = everyProduct.Volume
             }
             ).ToList();
 
@@ -66,7 +67,8 @@ namespace ApiAlmacen.Controllers
                     ProductName = selectedProduct.ProductName,
                     ProductWeight = selectedProduct.ProductWeight,
                     ActivatedProduct = selectedProduct.ActivatedProduct,
-                    ProductDescription = selectedProduct.ProductDescription
+                    ProductDescription = selectedProduct.ProductDescription,
+                    Volume = selectedProduct.Volume
                 };
 
                 return Ok(productoView);
