@@ -39,7 +39,8 @@ namespace ApiAlmacen.Controllers
             {
                 IDBatches = everyBatch.IDBatch,
                 DateOfCreation = everyBatch.DateOfCreation,
-                ShippingDate = everyBatch.ShippingDate
+                ShippingDate = everyBatch.ShippingDate,
+                IDShipp = everyBatch.IDShipp
             });
             return Ok(batchView);
         }
@@ -61,7 +62,8 @@ namespace ApiAlmacen.Controllers
                 {
                     IDBatches = batch.IDBatch,
                     DateOfCreation = batch.DateOfCreation,
-                    ShippingDate = batch.ShippingDate
+                    ShippingDate = batch.ShippingDate,
+                    IDShipp = batch.IDShipp
                 };
                 return Ok(batchView);
             }

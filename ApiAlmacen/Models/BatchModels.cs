@@ -13,13 +13,15 @@ namespace ApiAlmacen.Models
         public int IDBatch { get; set; }
         public DateTime DateOfCreation { get; set; }
         public DateTime ShippingDate { get; set; }
+        public int IDShipp { get; set; }
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre) VALUES " +
-                $"('{this.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")}', " +
-                $"'{this.ShippingDate.ToString("yyyy-MM-dd")}')"; 
-            this.Command.ExecuteNonQuery();
+            this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre, id_Des) VALUES " +
+                $"('{this.DateOfCreation.ToString("yyyy-MM-dd")}', " +
+                $"'{this.ShippingDate.ToString("yyyy-MM-dd")}'," +
+                $"{this.IDShipp})"; 
+            this.Command.ExecuteNonQuery(); //crashea cuando la foreign key no se encuentra
 
             this.Command.CommandText = "SELECT last_insert_id()";
             this.IDBatch = Convert.ToInt32(this.Command.ExecuteScalar());
@@ -37,6 +39,7 @@ namespace ApiAlmacen.Models
                 lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
                 lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
                 lote.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
+                lote.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
                 result.Add(lote);
             }
             this.Reader.Close();

@@ -10,5 +10,6 @@ namespace ApiAlmacen.Controllers
         public int IDBatches { get; set; }
         public DateTime ShippingDate { get; set; }
         public DateTime DateOfCreation { get; set; }
+        public int IDShipp { get; set; }
     }
 }
