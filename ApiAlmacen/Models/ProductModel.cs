@@ -21,15 +21,15 @@ namespace ApiAlmacen.Models
         [Required]
         public int ProductWeight { get; set; }
         [Required]
-        public int ProductAmount { get; set; }
+        public bool ActivatedProduct { get; set; }
 
         public void Save()
         {
             try { 
-            this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, cant_Prod, desc_Prod) VALUES(" +
+            this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, bajalogica, desc_Prod) VALUES(" +
                $"'{this.ProductName}', " +
                $"{this.ProductWeight}, " +
-               $"{this.ProductAmount}, " +
+               $"{this.ActivatedProduct}, " +
                $"'{this.ProductDescription}')";
             this.Command.ExecuteNonQuery();
             }
@@ -63,7 +63,7 @@ namespace ApiAlmacen.Models
                 this.Command.CommandText = $"UPDATE producto SET " +
                     $"nom_Prod = '{this.ProductName}', " +
                     $"peso_Prod = {this.ProductWeight}, " +
-                    $"cant_Prod = {this.ProductAmount}, " +
+                    $"cant_Prod = {this.ActivatedProduct}, " +
                     $"desc_Prod = '{this.ProductDescription}' " +
                     $"WHERE id_Prod = {this.IDProduct}";
                 this.Command.ExecuteNonQuery();
@@ -87,7 +87,7 @@ namespace ApiAlmacen.Models
                 product.IDProduct = Int32.Parse(this.Reader["id_Prod"].ToString());
                 product.ProductName = this.Reader["nom_Prod"].ToString();
                 product.ProductWeight = Int32.Parse(this.Reader["peso_Prod"].ToString());
-                product.ProductAmount = Int32.Parse(this.Reader["cant_Prod"].ToString());
+                product.ActivatedProduct = Convert.ToBoolean(this.Reader["bajalogica"].ToString());
                 product.ProductDescription = this.Reader["desc_Prod"].ToString();
                 result.Add(product);
             }

@@ -10,7 +10,7 @@ namespace ApiAlmacen.Controllers
         public int IDProduct { get; set; }
         public string ProductName { get; set; }
         public int ProductWeight { get; set; }
-        public int ProductAmount { get; set; }
+        public bool ActivatedProduct { get; set; }
         public string ProductDescription { get; set; }
     }
 }

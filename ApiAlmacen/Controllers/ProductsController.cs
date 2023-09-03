@@ -39,7 +39,7 @@ namespace ApiAlmacen.Controllers
                 IDProduct = everyProduct.IDProduct,
                 ProductName = everyProduct.ProductName,
                 ProductWeight = everyProduct.ProductWeight,
-                ProductAmount = everyProduct.ProductAmount,
+                ActivatedProduct = everyProduct.ActivatedProduct,
                 ProductDescription = everyProduct.ProductDescription
             }
             ).ToList();
@@ -65,7 +65,7 @@ namespace ApiAlmacen.Controllers
                     IDProduct = selectedProduct.IDProduct,
                     ProductName = selectedProduct.ProductName,
                     ProductWeight = selectedProduct.ProductWeight,
-                    ProductAmount = selectedProduct.ProductAmount,
+                    ActivatedProduct = selectedProduct.ActivatedProduct,
                     ProductDescription = selectedProduct.ProductDescription
                 };
 
@@ -107,7 +107,7 @@ namespace ApiAlmacen.Controllers
             }
             catch (ProductNotFoundException ex)
             {
-                return BadRequest(ex.Message); //json
+                return BadRequest(ex.Message);
             }
         }
 
