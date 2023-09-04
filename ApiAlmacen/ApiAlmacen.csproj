@@ -180,6 +180,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AssignProductsController.cs" />
     <Compile Include="Controllers\GetPackagesView.cs" />
+    <Compile Include="Controllers\Handlers\ErrorHandlerPackageNotFound.cs" />
     <Compile Include="Controllers\Handlers\ErrorHandlerProductNotFound.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Models\DatabaseConnector.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiAlmacen.Controllers.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -47,6 +48,44 @@ namespace ApiAlmacen.Models
         {
             this.Command.CommandText = $"DELETE FROM paquete WHERE id_paq = {this.IDPackage}";
             this.Command.ExecuteNonQuery();
+        }
+
+
+        public bool CheckIfPackageExists(int id)
+        {
+            this.Command.CommandText = $"SELECT COUNT(*) FROM paquete WHERE id_paq = {id}";
+            object result = this.Command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                if (int.TryParse(result.ToString(), out int rowCount))
+                {
+                    return rowCount > 0;
+                }
+            }
+
+            return false;
+        }
+
+        public void Edit()
+        {
+
+            bool packageExists = CheckIfPackageExists(this.IDPackage);
+
+            if (packageExists == true)
+            {
+                this.Command.CommandText = $"UPDATE paquete SET " +
+                    $"calle = '{this.Street}', " +
+                    $"num = {this.HouseNumber}, " +
+                    $"esq = '{this.Corner}', " +
+                    $"cliente = '{this.Customer}' " +
+                    $"WHERE id_paq = {this.IDPackage}";
+                this.Command.ExecuteNonQuery();
+            }
+            else
+            {
+                throw new ErrorHandlerPackageNotFound(this.IDPackage);
+            }
         }
 
     }
