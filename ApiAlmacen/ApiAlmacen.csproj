@@ -178,13 +178,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AssignProductsController.cs" />
+    <Compile Include="Controllers\IntegratePackageController.cs" />
     <Compile Include="Controllers\GetPackagesView.cs" />
     <Compile Include="Controllers\Handlers\ErrorHandlerPackageNotFound.cs" />
     <Compile Include="Controllers\Handlers\ErrorHandlerProductNotFound.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Models\DatabaseConnector.cs" />
-    <Compile Include="Controllers\GetAssignedProductsView.cs" />
+    <Compile Include="Controllers\GetIntegratePackagesView.cs" />
     <Compile Include="Controllers\GetBatchsView.cs" />
     <Compile Include="Controllers\GetProductsView.cs" />
     <Compile Include="Controllers\GetTruckersCarriesBatchView.cs" />
@@ -196,7 +196,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssignProductModels.cs" />
+    <Compile Include="Models\IntegratePackageModels.cs" />
     <Compile Include="Models\BatchModels.cs" />
     <Compile Include="Models\PackageModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
