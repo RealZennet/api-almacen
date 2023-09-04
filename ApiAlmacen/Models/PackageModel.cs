@@ -18,9 +18,9 @@ namespace ApiAlmacen.Models
             this.Command.CommandText = $"INSERT INTO paquete (calle, num, esq, cliente)" +
                 $" VALUES " +
                 $"('{this.Street}', " +
-                $"{this.HouseNumber})," +
+                $"{this.HouseNumber}," +
                 $"'{this.Corner}'," +
-                $"'{this.Customer}'";
+                $"'{this.Customer}')";
             this.Command.ExecuteNonQuery();
         }
 
@@ -45,7 +45,7 @@ namespace ApiAlmacen.Models
 
         public void Delete()
         {
-            this.Command.CommandText = $"DELETE FROM paquete WHERE id_Lote = {this.IDPackage}";
+            this.Command.CommandText = $"DELETE FROM paquete WHERE id_paq = {this.IDPackage}";
             this.Command.ExecuteNonQuery();
         }
 
