@@ -93,7 +93,7 @@ namespace ApiAlmacen.Controllers
             else
             {
                 packageAssigned.Delete();
-                return Ok(showResult($"Package con ID {id} eliminado con éxito"));
+                return Ok(showResult($"Producto con ID {id} eliminado con éxito"));
             }
         }
 
