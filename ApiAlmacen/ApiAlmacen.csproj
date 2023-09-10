@@ -182,7 +182,6 @@
     <Compile Include="Controllers\GetPackagesView.cs" />
     <Compile Include="Controllers\Handlers\ErrorHandlerPackageNotFound.cs" />
     <Compile Include="Controllers\Handlers\ErrorHandlerProductNotFound.cs" />
-    <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Models\DatabaseConnector.cs" />
     <Compile Include="Controllers\GetIntegratePackagesView.cs" />
     <Compile Include="Controllers\GetBatchsView.cs" />
@@ -198,7 +197,6 @@
     </Compile>
     <Compile Include="Models\IntegratePackageModels.cs" />
     <Compile Include="Models\BatchModels.cs" />
-    <Compile Include="Models\PackageModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\TruckerCarriesBatchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,12 +8,12 @@ namespace ApiAlmacen.Models
 {
     public class IntegratePackageModels:DatabaseConnector
     {
-        public int IDPackage { get; set; }
+        public int IDProduct { get; set; }
         public int IDBatch { get; set; }
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO integra (id_paq, id_lote) VALUES ({this.IDPackage}, {this.IDBatch})";
+            this.Command.CommandText = $"INSERT INTO integra (id_prod, id_lote) VALUES ({this.IDProduct}, {this.IDBatch})";
             this.Command.ExecuteNonQuery();
         }
 
@@ -26,7 +26,7 @@ namespace ApiAlmacen.Models
             while (this.Reader.Read())
             {
                 IntegratePackageModels assignedProduct = new IntegratePackageModels();
-                assignedProduct.IDPackage = Int32.Parse(this.Reader["id_paq"].ToString());
+                assignedProduct.IDProduct = Int32.Parse(this.Reader["id_prod"].ToString());
                 assignedProduct.IDBatch = Int32.Parse(this.Reader["id_lote"].ToString());
                 result.Add(assignedProduct);
             }
@@ -35,11 +35,9 @@ namespace ApiAlmacen.Models
 
         public void Delete()
         {
-            this.Command.CommandText = $"DELETE FROM integra WHERE id_paq = {this.IDBatch}";
+            this.Command.CommandText = $"DELETE FROM integra WHERE id_prod = {this.IDBatch}";
             this.Command.ExecuteNonQuery();
         }
-
-        //getoneassigned
 
     }
 }

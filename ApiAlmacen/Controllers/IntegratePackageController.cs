@@ -23,14 +23,14 @@ namespace ApiAlmacen.Controllers
             if (!ModelState.IsValid || IntegratePackage == null)
             {
                 var errorResponse = $"Error en el ingreso de datos con el id {IntegratePackage.IDBatch} y " +
-                    $"{IntegratePackage.IDPackage}";
+                    $"{IntegratePackage.IDProduct}";
                 return BadRequest(errorResponse.ToString());
             }
 
             try
             {
                 IntegratePackage.Save();
-                return Ok(showResult($"Producto {IntegratePackage.IDPackage} fue asignado correctamente al lote {IntegratePackage.IDBatch}"));
+                return Ok(showResult($"Producto {IntegratePackage.IDProduct} fue asignado correctamente al lote {IntegratePackage.IDBatch}"));
             }
             catch (Exception)
             {
@@ -51,7 +51,7 @@ namespace ApiAlmacen.Controllers
 
             var AssignedProductsView = assignedProductsList.Select(everyPackage => new GetIntegratePackagesView
             {
-                IDPackage = everyPackage.IDPackage,
+                IDPackage = everyPackage.IDProduct,
                 IDBatch = everyPackage.IDBatch,
             }).ToList();
 
@@ -63,7 +63,7 @@ namespace ApiAlmacen.Controllers
         {
             IntegratePackageModels package = new IntegratePackageModels();
             var integratedPackageList = package.getAllAsignedProducts();
-            var IntegratedPackageSearch = integratedPackageList.FirstOrDefault(p => p.IDPackage == id);
+            var IntegratedPackageSearch = integratedPackageList.FirstOrDefault(p => p.IDProduct == id);
 
             if (IntegratedPackageSearch == null)
             {
@@ -73,7 +73,7 @@ namespace ApiAlmacen.Controllers
             {
                 var IntegratedPackagesView = new GetIntegratePackagesView
                 {
-                    IDPackage = IntegratedPackageSearch.IDPackage,
+                    IDPackage = IntegratedPackageSearch.IDProduct,
                     IDBatch = IntegratedPackageSearch.IDBatch,
                 };
 
@@ -85,7 +85,7 @@ namespace ApiAlmacen.Controllers
         {
             IntegratePackageModels package = new IntegratePackageModels();
             var packageList = package.getAllAsignedProducts();
-            var packageAssigned = packageList.FirstOrDefault(everyPackage => everyPackage.IDPackage == id);
+            var packageAssigned = packageList.FirstOrDefault(everyPackage => everyPackage.IDProduct == id);
             if (packageAssigned == null)
             {
                 return NotFound();

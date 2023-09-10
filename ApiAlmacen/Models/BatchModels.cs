@@ -14,13 +14,15 @@ namespace ApiAlmacen.Models
         public DateTime DateOfCreation { get; set; }
         public DateTime ShippingDate { get; set; }
         public int IDShipp { get; set; }
+        public bool ActivedBatch { get; set; }
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre, id_Des) VALUES " +
+            this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre, id_Des, bajalogica) VALUES " +
                 $"('{this.DateOfCreation.ToString("yyyy-MM-dd")}', " +
                 $"'{this.ShippingDate.ToString("yyyy-MM-dd")}'," +
-                $"{this.IDShipp})"; 
+                $"{this.IDShipp}," +
+                $"{this.ActivedBatch})"; 
             this.Command.ExecuteNonQuery(); //crashea cuando la foreign key no se encuentra
 
             this.Command.CommandText = "SELECT last_insert_id()";
@@ -40,6 +42,7 @@ namespace ApiAlmacen.Models
                 lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
                 lote.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
                 lote.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
+                lote.ActivedBatch = Convert.ToBoolean(this.Reader["bajalogica"]);
                 result.Add(lote);
             }
             this.Reader.Close();

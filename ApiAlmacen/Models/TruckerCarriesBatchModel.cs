@@ -13,7 +13,7 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
-            try // Controlar excepcion para evitar duplicados
+            try 
             {
                 this.Command.CommandText = $"INSERT INTO llevan (id_Cam, id_Lote) VALUES (" +
                     $"{this.IDTruck}, " +
