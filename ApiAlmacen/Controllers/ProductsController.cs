@@ -22,11 +22,11 @@ namespace ApiAlmacen.Controllers
         {
             if (!ModelState.IsValid || product == null)
             {
-                var errorResponse = $"Error en el ingreso de datos con {product.ProductName}.";
+                var errorResponse = $"Error en el ingreso de datos con {product.IDProduct}.";
                 return BadRequest(errorResponse.ToString());
             }
             product.Save();
-            return Ok(showResult(product.ProductName));
+            return Ok(showResult(product.IDProduct.ToString()));
         }
 
         [Route("api/v1/productos")]
@@ -37,11 +37,13 @@ namespace ApiAlmacen.Controllers
             var productosView = listproducts.Select(everyProduct => new GetProductsView
             {
                 IDProduct = everyProduct.IDProduct,
-                ProductName = everyProduct.ProductName,
                 ProductWeight = everyProduct.ProductWeight,
                 ActivatedProduct = everyProduct.ActivatedProduct,
-                ProductDescription = everyProduct.ProductDescription,
-                Volume = everyProduct.Volume
+                Volume = everyProduct.Volume,
+                Street = everyProduct.Street,
+                DoorNumber = everyProduct.DoorNumber,
+                Corner = everyProduct.Corner,
+                Customer = everyProduct.Customer,
             }
             ).ToList();
 
@@ -64,11 +66,13 @@ namespace ApiAlmacen.Controllers
                 var productoView = new GetProductsView
                 {
                     IDProduct = selectedProduct.IDProduct,
-                    ProductName = selectedProduct.ProductName,
                     ProductWeight = selectedProduct.ProductWeight,
                     ActivatedProduct = selectedProduct.ActivatedProduct,
-                    ProductDescription = selectedProduct.ProductDescription,
-                    Volume = selectedProduct.Volume
+                    Volume = selectedProduct.Volume,
+                    Street = selectedProduct.Street,
+                    DoorNumber = selectedProduct.DoorNumber,
+                    Corner = selectedProduct.Corner,
+                    Customer = selectedProduct.Customer
                 };
 
                 return Ok(productoView);

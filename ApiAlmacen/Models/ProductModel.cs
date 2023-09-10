@@ -13,26 +13,34 @@ namespace ApiAlmacen.Models
 
         public int IDProduct { get; set; }
         [Required]
-        [StringLength(30, ErrorMessage = "El nombre del producto debe tener un máximo de 30 caracteres.")]
-        public string ProductName { get; set; }
-        [Required]
-        [StringLength(30, ErrorMessage = "La descripcion del producto debe tener un máximo de 100 caracteres.")]
-        public string ProductDescription { get; set; }
-        [Required]
         public int ProductWeight { get; set; }
         [Required]
         public bool ActivatedProduct { get; set; }
+        [Required]
         public int Volume { get; set; }
+        [Required]
+        public string Street { get; set; }
+        [Required]
+        public int DoorNumber { get; set; }
+        [Required]
+        public string Corner { get; set; }
+        [Required]
+        public string Customer { get; set; }
 
         public void Save()
         {
-            this.Command.CommandText = $"INSERT INTO producto(nom_Prod, peso_Prod, bajalogica, desc_Prod, volumen) VALUES(" +
-               $"'{this.ProductName}', " +
+            this.Command.CommandText = $"INSERT INTO producto(peso_producto, bajalogica, volumen_producto, calle, num, esq, cliente) VALUES(" +
                $"{this.ProductWeight}, " +
                $"{this.ActivatedProduct}, " +
-               $"'{this.ProductDescription}'," +
-               $"{this.Volume})";
+               $"{this.Volume}," +
+               $"'{this.Street}'," +
+               $"{this.DoorNumber}," +
+               $"'{this.Corner}'," +
+               $"'{this.Customer}')";
             this.Command.ExecuteNonQuery();
+            
+            this.Command.CommandText = "SELECT LAST_INSERT_ID()";
+            this.IDProduct = Convert.ToInt32(this.Command.ExecuteScalar());
         }
 
 
@@ -60,11 +68,13 @@ namespace ApiAlmacen.Models
             if (productExists == true)
             {
                 this.Command.CommandText = $"UPDATE producto SET " +
-                    $"nom_Prod = '{this.ProductName}', " +
-                    $"peso_Prod = {this.ProductWeight}, " +
+                    $"peso_producto = {this.ProductWeight}, " +
                     $"bajalogica = {this.ActivatedProduct}, " +
-                    $"desc_Prod = '{this.ProductDescription}', " +
-                    $"volumen = {this.Volume} " +
+                    $"volumen_producto = {this.Volume}, " +
+                    $"calle = '{this.Street}', " +
+                    $"num = {this.DoorNumber}, " +
+                    $"esq = '{this.Corner}', " +
+                    $"cliente = '{this.Customer}'" +
                     $"WHERE id_prod = {this.IDProduct}";
                 this.Command.ExecuteNonQuery();
             }
@@ -85,11 +95,13 @@ namespace ApiAlmacen.Models
             {
                 ProductModel product = new ProductModel();
                 product.IDProduct = Int32.Parse(this.Reader["id_prod"].ToString());
-                product.ProductName = this.Reader["nom_Prod"].ToString();
-                product.ProductWeight = Int32.Parse(this.Reader["peso_Prod"].ToString());
+                product.ProductWeight = Int32.Parse(this.Reader["peso_producto"].ToString());
                 product.ActivatedProduct = Convert.ToBoolean(this.Reader["bajalogica"].ToString());
-                product.ProductDescription = this.Reader["desc_Prod"].ToString();
-                product.Volume = Int32.Parse(this.Reader["volumen"].ToString());
+                product.Volume = Int32.Parse(this.Reader["volumen_producto"].ToString());
+                product.Street = this.Reader["calle"].ToString();
+                product.DoorNumber = Int32.Parse(this.Reader["num"].ToString());
+                product.Corner = this.Reader["esq"].ToString();
+                product.Customer = this.Reader["cliente"].ToString();
                 result.Add(product);
             }
             this.Reader.Close();
@@ -101,6 +113,6 @@ namespace ApiAlmacen.Models
             this.Command.ExecuteNonQuery();
         }
 
-        //Agregar baja logica
+        
     }
 }
