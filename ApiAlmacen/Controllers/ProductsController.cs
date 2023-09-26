@@ -20,13 +20,22 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos")]
         public IHttpActionResult Post([FromBody] ProductModel product)
         {
-            if (!ModelState.IsValid || product == null)
+            try
             {
-                var errorResponse = $"Error en el ingreso de datos con {product.IDProduct}.";
+                var errorResponse = $"Error en el ingreso de datos.";
+                if (!ModelState.IsValid || product == null)
+            {
+                
                 return BadRequest(errorResponse.ToString());
             }
             product.Save();
             return Ok(showResult(product.IDProduct.ToString()));
+            }
+            catch(Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}.";
+                return BadRequest(errorExceptionResponse.ToString());
+            }
         }
 
         [Route("api/v1/productos")]

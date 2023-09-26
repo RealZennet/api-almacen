@@ -20,6 +20,9 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/lotes")]
         public IHttpActionResult Post([FromBody] BatchModels batch) 
         {
+            try
+            {
+
             if (!ModelState.IsValid || batch == null)
             {
                 var errorResponse = $"Error, revisa los datos ingresados.";
@@ -28,11 +31,20 @@ namespace ApiAlmacen.Controllers
             batch.DateOfCreation = DateTime.Now;
             batch.Save();
             return Ok(showResult($"Lote {batch.IDBatch.ToString()} guardado"));
+            }
+            catch (Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
+            }
         }
 
         [Route("api/v1/lotes")]
         public IHttpActionResult Get()
         {
+            try
+            {
+
             BatchModels batches = new BatchModels();
             var batchList = batches.GetAllLots();
             var batchView = batchList.Select(everyBatch => new GetBatchsView
@@ -44,6 +56,12 @@ namespace ApiAlmacen.Controllers
                 ActivedBatch = everyBatch.ActivedBatch
             });
             return Ok(batchView);
+            }
+            catch(Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
+            }
         }
 
 

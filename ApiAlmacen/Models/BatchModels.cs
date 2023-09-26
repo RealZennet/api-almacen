@@ -18,19 +18,30 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
+            try { 
             this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre, id_Des, bajalogica) VALUES " +
                 $"('{this.DateOfCreation.ToString("yyyy-MM-dd")}', " +
                 $"'{this.ShippingDate.ToString("yyyy-MM-dd")}'," +
                 $"{this.IDShipp}," +
                 $"{this.ActivedBatch})"; 
-            this.Command.ExecuteNonQuery(); //crashea cuando la foreign key no se encuentra
+            this.Command.ExecuteNonQuery(); 
 
             this.Command.CommandText = "SELECT last_insert_id()";
             this.IDBatch = Convert.ToInt32(this.Command.ExecuteScalar());
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public List<BatchModels> GetAllLots()
         {
+            if (this.Command == null)
+            {
+                throw new Exception("Error de sistema");
+            }
+
             this.Command.CommandText = $"SELECT * FROM lote"; 
             this.Reader = this.Command.ExecuteReader();
 
@@ -50,7 +61,12 @@ namespace ApiAlmacen.Models
         }
         public void DeleteLots()
         {
-            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}"; 
+            if (!CheckIfBatchExists(this.IDBatch))
+            {
+                throw new ApplicationException($"El lote con ID {this.IDBatch} no existe, no se puede eliminar.");
+            }
+
+            this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}";
             this.Command.ExecuteNonQuery();
         }
 
