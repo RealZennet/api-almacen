@@ -7,7 +7,7 @@ namespace ApiAlmacen.Controllers
 {
     public class GetIntegratePackagesView
     {
-        public int IDPackage { get; set; }
+        public int IDProduct { get; set; }
         public int IDBatch { get; set; }
     }
 }

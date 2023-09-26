@@ -51,7 +51,7 @@ namespace ApiAlmacen.Controllers
 
             var AssignedProductsView = assignedProductsList.Select(everyPackage => new GetIntegratePackagesView
             {
-                IDPackage = everyPackage.IDProduct,
+                IDProduct = everyPackage.IDProduct,
                 IDBatch = everyPackage.IDBatch,
             }).ToList();
 
@@ -73,7 +73,7 @@ namespace ApiAlmacen.Controllers
             {
                 var IntegratedPackagesView = new GetIntegratePackagesView
                 {
-                    IDPackage = IntegratedPackageSearch.IDProduct,
+                    IDProduct = IntegratedPackageSearch.IDProduct,
                     IDBatch = IntegratedPackageSearch.IDBatch,
                 };
 
