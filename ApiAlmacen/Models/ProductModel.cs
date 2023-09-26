@@ -87,6 +87,11 @@ namespace ApiAlmacen.Models
 
         public List<ProductModel> GetAllProducts()
         {
+            if (this.Command == null)
+            {
+                throw new Exception("Error de sistema");
+            }
+
             this.Command.CommandText = "SELECT * FROM producto";
             this.Reader = this.Command.ExecuteReader();
 

@@ -41,6 +41,9 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos")]
         public IHttpActionResult Get()
         {
+            try
+            {
+
             ProductModel products = new ProductModel();
             var listproducts = products.GetAllProducts();
             var productosView = listproducts.Select(everyProduct => new GetProductsView
@@ -57,6 +60,12 @@ namespace ApiAlmacen.Controllers
             ).ToList();
 
             return Ok(productosView);
+            }
+            catch(Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
+            }
         }
 
         [Route("api/v1/productos/{id:int}")]
