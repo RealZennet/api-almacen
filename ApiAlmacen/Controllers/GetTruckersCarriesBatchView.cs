@@ -9,5 +9,6 @@ namespace ApiAlmacen.Controllers
     {
         public int IDTruck { get; set; }
         public int IDBatch { get; set; }
+        public DateTime ShippDate { get; set; }
     }
 }

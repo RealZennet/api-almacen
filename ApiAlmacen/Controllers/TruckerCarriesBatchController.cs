@@ -9,15 +9,32 @@ namespace ApiAlmacen.Controllers
 {
     public class TruckerCarriesBatchController : ApiController
     {
+
+        private Dictionary<string, string> showResult(string message)
+        {
+            Dictionary<string, string> resultJson = new Dictionary<string, string>();
+            resultJson.Add("Accion realizada con exito: ", message);
+            return resultJson;
+        }
+
         [Route("api/v1/camionllevalotes")]
         public IHttpActionResult Post([FromBody] TruckerCarriesBatchModel truckercarriesbatch)
         {
-            if (!ModelState.IsValid || truckercarriesbatch == null)
+            try
             {
-                return BadRequest("Error en el ingreso de datos");
+                if (!ModelState.IsValid || truckercarriesbatch == null)
+                {
+                    return BadRequest("Error en el ingreso de datos");
+                }
+                truckercarriesbatch.Save();
+                return Ok(showResult($"El camion {truckercarriesbatch.IDTruck} llevara el lote {truckercarriesbatch.IDBatch}"));
             }
-            truckercarriesbatch.Save();
-            return Ok($"El camion {truckercarriesbatch.IDTruck} llevara el lote {truckercarriesbatch.IDBatch}");
+            catch(Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
+            }
+
         }
 
         [Route("api/v1/camionllevalotes")]
@@ -28,7 +45,8 @@ namespace ApiAlmacen.Controllers
             var carriesView = listcarries.Select(everyCarrie => new GetTruckersCarriesBatchView
             {
                 IDTruck = everyCarrie.IDTruck,
-                IDBatch = everyCarrie.IDBatch
+                IDBatch = everyCarrie.IDBatch,
+                ShippDate = everyCarrie.ShippDate
             }
             ).ToList();
 
@@ -51,7 +69,8 @@ namespace ApiAlmacen.Controllers
                 var carrieView = new GetTruckersCarriesBatchView
                 {
                     IDTruck = selectedCarrie.IDTruck,
-                    IDBatch = selectedCarrie.IDBatch
+                    IDBatch = selectedCarrie.IDBatch,
+                    ShippDate = selectedCarrie.ShippDate
                 };
 
                 return Ok(carrieView);

@@ -1,4 +1,5 @@
 ﻿using ApiAlmacen.Controllers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,27 +7,28 @@ using System.Web;
 
 namespace ApiAlmacen.Models
 {
-    public class TruckerCarriesBatchModel  : DatabaseConnector
+    public class TruckerCarriesBatchModel : DatabaseConnector
     {
         public int IDTruck { get; set; }
         public int IDBatch { get; set; }
+        [JsonProperty("ShippDate")]
         public DateTime ShippDate { get; set; }
 
         public void Save()
         {
-            try 
+            try
             {
-                this.Command.CommandText = $"INSERT INTO llevan (id_camion, id_Lote, fech_Sal) VALUES (" +
+                string formattedDate = ShippDate.ToString("yyyy-MM-dd");
+                this.Command.CommandText = $"INSERT INTO llevan (id_camion, id_Lote, fech_sal) VALUES (" +
                     $"{this.IDTruck}, " +
                     $"{this.IDBatch}, " +
-                    $"'{this.ShippDate.ToString("yyyy-MM-dd")}')";
+                    $"'{formattedDate}')";
                 this.Command.ExecuteNonQuery();
             }
-            catch(Exception)
+            catch (Exception ex)
             {
-
+                throw new Exception(ex.Message);
             }
-
         }
 
         public void DeleteCarries()
@@ -45,13 +47,12 @@ namespace ApiAlmacen.Models
             {
                 TruckerCarriesBatchModel carrie = new TruckerCarriesBatchModel();
                 carrie.IDTruck = Int32.Parse(this.Reader["id_camion"].ToString());
-                carrie.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
-                carrie.ShippDate = DateTime.Parse(this.Reader["fech_Sal"].ToString());
+                carrie.IDBatch = Int32.Parse(this.Reader["id_lote"].ToString());
+                carrie.ShippDate = Convert.ToDateTime(this.Reader["fech_sal"].ToString());
                 result.Add(carrie);
             }
             this.Reader.Close();
             return result;
         }
-
     }
 }
