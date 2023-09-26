@@ -42,20 +42,29 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/integrarpaquetes")]
         public IHttpActionResult Get()
         {
-            IntegratePackageModels products = new IntegratePackageModels();
-            var assignedProductsList = products.getAllAsignedProducts();
-            if (assignedProductsList == null || !assignedProductsList.Any())
+            try
             {
-                return NotFound();
+                IntegratePackageModels products = new IntegratePackageModels();
+                var assignedProductsList = products.getAllAsignedProducts();
+                if (assignedProductsList == null || !assignedProductsList.Any())
+                {
+                    return NotFound();
+                }
+
+                var AssignedProductsView = assignedProductsList.Select(everyPackage => new GetIntegratePackagesView
+                {
+                    IDProduct = everyPackage.IDProduct,
+                    IDBatch = everyPackage.IDBatch,
+                }).ToList();
+
+                return Ok(AssignedProductsView);
+            }
+            catch(Exception ex)
+            {
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
             }
 
-            var AssignedProductsView = assignedProductsList.Select(everyPackage => new GetIntegratePackagesView
-            {
-                IDProduct = everyPackage.IDProduct,
-                IDBatch = everyPackage.IDBatch,
-            }).ToList();
-
-            return Ok(AssignedProductsView);
         }
 
         [Route("api/v1/integrarpaquetes/{id:int}")]

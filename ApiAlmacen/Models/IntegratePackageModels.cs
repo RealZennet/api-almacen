@@ -20,6 +20,12 @@ namespace ApiAlmacen.Models
 
         public List<IntegratePackageModels> getAllAsignedProducts()
         {
+
+            if (this.Command == null)
+            {
+                throw new Exception("Error de sistema");
+            }
+
             this.Command.CommandText = $"SELECT * FROM integra";
             this.Reader = this.Command.ExecuteReader();
             List<IntegratePackageModels> result = new List<IntegratePackageModels>();
@@ -35,7 +41,7 @@ namespace ApiAlmacen.Models
 
         public void Delete()
         {
-            this.Command.CommandText = $"DELETE FROM integra WHERE id_prod = {this.IDBatch}";
+            this.Command.CommandText = $"DELETE FROM integra WHERE id_prod = {this.IDProduct}";
             this.Command.ExecuteNonQuery();
         }
 

@@ -114,6 +114,10 @@ namespace ApiAlmacen.Models
         }
         public void DeleteProduct()
         {
+            if(this.Command == null)
+            {
+                throw new Exception("Command error");
+            }
             this.Command.CommandText = $"DELETE FROM producto WHERE id_prod = {this.IDProduct}";
             this.Command.ExecuteNonQuery();
         }

@@ -99,18 +99,27 @@ namespace ApiAlmacen.Controllers
         [Route("api/v1/productos/{id:int}")]
         public IHttpActionResult Delete(int id)
         {
-            ProductModel product = new ProductModel();
-            var productList = product.GetAllProducts();
-            var selectedProduct = productList.FirstOrDefault(everyProduct => everyProduct.IDProduct == id);
-            if (selectedProduct == null)
+            try
             {
-                return NotFound();
+                ProductModel product = new ProductModel();
+                var productList = product.GetAllProducts();
+                var selectedProduct = productList.FirstOrDefault(everyProduct => everyProduct.IDProduct == id);
+                if (selectedProduct == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    selectedProduct.DeleteProduct();
+                    return Ok(showResult(id.ToString()));
+                }
             }
-            else
+            catch(Exception ex)
             {
-                selectedProduct.DeleteProduct();
-                return Ok(showResult(id.ToString()));
+                var errorExceptionResponse = $"Error: {ex.Message}";
+                return BadRequest(errorExceptionResponse.ToString());
             }
+
         }
 
         [Route("api/v1/productos/{id:int}")]
