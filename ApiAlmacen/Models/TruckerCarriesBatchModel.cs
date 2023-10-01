@@ -14,6 +14,7 @@ namespace ApiAlmacen.Models
         [JsonProperty("ShippDate")]
         public DateTime ShippDate { get; set; }
 
+
         public void Save()
         {
             try
