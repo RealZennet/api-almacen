@@ -22,7 +22,6 @@ namespace ApiAlmacen.Controllers
         {
             try
             {
-
             if (!ModelState.IsValid || batch == null)
             {
                 var errorResponse = $"Error, revisa los datos ingresados.";
@@ -50,6 +49,7 @@ namespace ApiAlmacen.Controllers
             var batchView = batchList.Select(everyBatch => new GetBatchsView
             {
                 IDBatches = everyBatch.IDBatch,
+                Email = everyBatch.Email,
                 DateOfCreation = everyBatch.DateOfCreation,
                 ShippingDate = everyBatch.ShippingDate,
                 IDShipp = everyBatch.IDShipp,
@@ -80,6 +80,7 @@ namespace ApiAlmacen.Controllers
                 var batchView = new GetBatchsView
                 {
                     IDBatches = batch.IDBatch,
+                    Email = batch.Email,
                     DateOfCreation = batch.DateOfCreation,
                     ShippingDate = batch.ShippingDate,
                     IDShipp = batch.IDShipp,

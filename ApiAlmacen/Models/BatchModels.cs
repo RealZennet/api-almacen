@@ -11,6 +11,7 @@ namespace ApiAlmacen.Models
     public class BatchModels:DatabaseConnector
     {
         public int IDBatch { get; set; }
+        public string Email { get; set; }
         public DateTime DateOfCreation { get; set; }
         public DateTime ShippingDate { get; set; }
         public int IDShipp { get; set; }
@@ -19,12 +20,13 @@ namespace ApiAlmacen.Models
         public void Save()
         {
             try { 
-            this.Command.CommandText = $"INSERT INTO lote (fech_Crea, fech_Entre, id_Des, bajalogica) VALUES " +
-                $"('{this.DateOfCreation.ToString("yyyy-MM-dd")}', " +
-                $"'{this.ShippingDate.ToString("yyyy-MM-dd")}'," +
+            this.Command.CommandText = $"INSERT INTO lote (email, fech_Crea, fech_Entre, id_Des, bajalogica) VALUES " +
+                $"('{this.Email.ToString()}', " +
+                $"'{this.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")}', " +
+                $"'{this.ShippingDate.ToString("yyyy-MM-dd HH:mm:ss")}'," +
                 $"{this.IDShipp}," +
-                $"{this.ActivedBatch})"; 
-            this.Command.ExecuteNonQuery(); 
+                $"{this.ActivedBatch})";
+                this.Command.ExecuteNonQuery(); 
 
             this.Command.CommandText = "SELECT last_insert_id()";
             this.IDBatch = Convert.ToInt32(this.Command.ExecuteScalar());
@@ -50,6 +52,7 @@ namespace ApiAlmacen.Models
             {
                 BatchModels lote = new BatchModels();
                 lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
+                lote.Email = this.Reader["email"].ToString();
                 lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
                 lote.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
                 lote.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
