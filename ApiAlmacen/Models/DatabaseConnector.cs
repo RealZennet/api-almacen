@@ -1,46 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using MySqlConnector;
 
 namespace ApiAlmacen.Models
 {
-    public abstract class DatabaseConnector
+    public abstract class DatabaseConnector : IDisposable
     {
-        public string dbip;
-        public string dbUser;
-        public string dbPassword;
-        public string dbDatabaseName;
+        private string dbip = "localhost";
+        private string dbUser = "root";
+        private string dbPassword = "zackquack";
+        private string dbDatabaseName = "quickCarryDB";
 
-        public MySqlConnection Connection;
-        public MySqlCommand Command;
-        public MySqlDataReader Reader;
+        protected MySqlConnection Connection;
+        protected MySqlCommand Command;
+        protected MySqlDataReader Reader;
 
         public DatabaseConnector()
         {
-            this.dbip = "localhost";
-            this.dbUser = "root";
-            this.dbPassword = "zackquack";
-            this.dbDatabaseName = "quickCarryApiTesting";
+            InitializeConnection();
+        }
 
+        private void InitializeConnection()
+        {
             try
             {
-                this.Connection = new MySqlConnection(
-                    $"server={this.dbip};" +
-                    $"user={this.dbUser};" +
-                    $"password={this.dbPassword};" +
-                    $"database={this.dbDatabaseName};");
+                Connection = new MySqlConnection(
+                    $"server={dbip};" +
+                    $"user={dbUser};" +
+                    $"password={dbPassword};" +
+                    $"database={dbDatabaseName};");
 
-                this.Connection.Open();
-                this.Command = new MySqlCommand();
-                this.Command.Connection = this.Connection;
+                Connection.Open();
+                Command = new MySqlCommand();
+                Command.Connection = Connection;
             }
             catch (MySqlException ex)
             {
                 Console.WriteLine("Error al abrir la conexión: " + ex.Message);
+                // Puedes manejar el error aquí, lanzar una excepción o realizar alguna acción de recuperación según tus necesidades.
             }
         }
 
+        public void Dispose()
+        {
+            // Cierra la conexión cuando se destruye la instancia
+            Connection?.Close();
+            Connection?.Dispose();
+        }
     }
 }

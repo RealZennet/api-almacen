@@ -11,7 +11,6 @@ namespace ApiAlmacen.Models
     {
         public int IDTruck { get; set; }
         public int IDBatch { get; set; }
-        [JsonProperty("ShippDate")]
         public DateTime ShippDate { get; set; }
 
 
@@ -19,11 +18,10 @@ namespace ApiAlmacen.Models
         {
             try
             {
-                string formattedDate = ShippDate.ToString("yyyy-MM-dd");
                 this.Command.CommandText = $"INSERT INTO llevan (id_camion, id_Lote, fech_sal) VALUES (" +
                     $"{this.IDTruck}, " +
                     $"{this.IDBatch}, " +
-                    $"'{formattedDate}')";
+                    $"'{this.ShippDate.ToString("yyyy-MM-dd HH:mm:ss")}')";
                 this.Command.ExecuteNonQuery();
             }
             catch (Exception ex)

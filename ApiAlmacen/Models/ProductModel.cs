@@ -1,8 +1,10 @@
 ﻿using ApiAlmacen.Controllers;
 using ApiAlmacen.Controllers.Handlers;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -89,7 +91,7 @@ namespace ApiAlmacen.Models
         {
             if (this.Command == null)
             {
-                throw new Exception("Error de sistema");
+                this.Command = new MySqlCommand();
             }
 
             this.Command.CommandText = "SELECT * FROM producto";
@@ -112,6 +114,7 @@ namespace ApiAlmacen.Models
             this.Reader.Close();
             return result;
         }
+
         public void DeleteProduct()
         {
             if(this.Command == null)
