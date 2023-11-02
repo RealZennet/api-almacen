@@ -179,6 +179,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DestinationController.cs" />
+    <Compile Include="Controllers\GeneralInfoController.cs" />
     <Compile Include="Controllers\GetDestinationView.cs" />
     <Compile Include="Controllers\IntegratePackageController.cs" />
     <Compile Include="Controllers\GetPackagesView.cs" />

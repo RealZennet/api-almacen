@@ -1,5 +1,6 @@
 ﻿using ApiAlmacen.Controllers;
 using ApiAlmacen.Controllers.Handlers;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,26 @@ namespace ApiAlmacen.Models
             return false;
         }
 
+        public int GetTotalBatchOnStoreHouse()
+        {
+            if (this.Command == null)
+            {
+                this.Command = new MySqlCommand();
+            }
+
+            this.Command.CommandText = "SELECT COUNT(*) FROM lote";
+            var result = this.Command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                if (int.TryParse(result.ToString(), out int totalCount))
+                {
+                    return totalCount;
+                }
+            }
+
+            return 0;
+        }
 
     }
 }

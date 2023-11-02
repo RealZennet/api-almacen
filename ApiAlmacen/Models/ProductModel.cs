@@ -125,6 +125,26 @@ namespace ApiAlmacen.Models
             this.Command.ExecuteNonQuery();
         }
 
-        
+        public int GetTotalProductOnStoreHouse()
+        {
+            if (this.Command == null)
+            {
+                this.Command = new MySqlCommand();
+            }
+
+            this.Command.CommandText = "SELECT COUNT(*) FROM producto";
+            var result = this.Command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                if (int.TryParse(result.ToString(), out int totalCount))
+                {
+                    return totalCount;
+                }
+            }
+
+            return 0;
+        }
+
     }
 }
