@@ -146,5 +146,26 @@ namespace ApiAlmacen.Models
             return 0;
         }
 
+        public int GetTotalTrucksOnStoreHouse()
+        {
+            if (this.Command == null)
+            {
+                this.Command = new MySqlCommand();
+            }
+
+            this.Command.CommandText = "SELECT COUNT(*) FROM camion where bajalogica = 1";
+            var result = this.Command.ExecuteScalar();
+
+            if (result != null && result != DBNull.Value)
+            {
+                if (int.TryParse(result.ToString(), out int totalCount))
+                {
+                    return totalCount;
+                }
+            }
+
+            return 0;
+        }
+
     }
 }

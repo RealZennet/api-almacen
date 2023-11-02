@@ -4,37 +4,25 @@ using System.Web.Http;
 
 namespace ApiAlmacen.Controllers
 {
-    public class LoteCountController : ApiController
+    public class GeneralInfoController : ApiController
     {
         [HttpGet]
-        [Route("api/v1/almacen/generalinfo/products/count")]
-        public IHttpActionResult GetProductCount()
+        [Route("api/v1/almacen/generalinfo/count")]
+        public IHttpActionResult GetGeneralInfo()
         {
-            ProductModel ProductModel = new ProductModel();
-            int productCount = ProductModel.GetTotalProductOnStoreHouse();
+            ProductModel productModel = new ProductModel();
+            int productCount = productModel.GetTotalProductOnStoreHouse();
 
-            Dictionary<string, int> result = new Dictionary<string, int>
+            BatchModels batchModel = new BatchModels();
+            int batchCount = batchModel.GetTotalBatchOnStoreHouse();
+
+            Dictionary<string, int> counts = new Dictionary<string, int>
             {
-                { "Count", productCount }
+                { "ProductCount", productCount },
+                { "BatchCount", batchCount }
             };
 
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("api/v1/almacen/generalinfo/batch/count")]
-        public IHttpActionResult GetBatchCount()
-        {
-            BatchModels BatchModel = new BatchModels();
-            int loteCount = BatchModel.GetTotalBatchOnStoreHouse();
-
-            Dictionary<string, int> result = new Dictionary<string, int>
-            {
-                { "Count", loteCount }
-            };
-
-            return Ok(result);
+            return Ok(counts);
         }
     }
-
 }
