@@ -9,7 +9,9 @@ namespace ApiAlmacen.Models
     public class DestinationModel : DatabaseConnector
     {
         public int IDDestination { get; set; }
-        public string DestinationLink { get; set; }
+        public string StreetDestination { get; set; }
+        public string DoorNumber { get; set; }
+        public string CornerDestination { get; set; }
         public DateTime EstimatedDate { get; set; }
         public bool ActivedDestination { get; set; }
 
@@ -27,7 +29,9 @@ namespace ApiAlmacen.Models
                     DestinationModel destination = new DestinationModel
                     {
                         IDDestination = Convert.ToInt32(this.Reader["id_des"]),
-                        DestinationLink = this.Reader["link_des"].ToString(),
+                        StreetDestination = this.Reader["calle"].ToString(),
+                        DoorNumber = this.Reader["num"].ToString(),
+                        CornerDestination = this.Reader["esq"].ToString(),
                         EstimatedDate = Convert.ToDateTime(this.Reader["fech_esti"].ToString()),
                         ActivedDestination = Convert.ToBoolean(this.Reader["bajalogica"])
                     };

@@ -17,7 +17,9 @@ namespace ApiAlmacen.Controllers
             var destinationView = listDestination.Select(everyDestination => new GetDestinationView
             {
                 IDDestination = everyDestination.IDDestination,
-                DestinationLink = everyDestination.DestinationLink,
+                StreetDestination = everyDestination.StreetDestination,
+                DoorNumber = everyDestination.DoorNumber,
+                CornerDestination = everyDestination.CornerDestination,
                 EstimatedDate = everyDestination.EstimatedDate,
                 ActivedDestination = everyDestination.ActivedDestination
             }
