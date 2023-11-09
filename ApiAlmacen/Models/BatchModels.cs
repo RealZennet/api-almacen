@@ -53,15 +53,15 @@ namespace ApiAlmacen.Models
             List<BatchModels> result = new List<BatchModels>();
             while (this.Reader.Read())
             {
-                BatchModels lote = new BatchModels();
-                lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
-                lote.Email = this.Reader["email"].ToString();
-                lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString()).Date;
-                lote.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
-                lote.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
-                lote.Position = this.Reader["posicion"].ToString();
-                lote.ActivedBatch = Convert.ToBoolean(this.Reader["bajalogica"]);
-                result.Add(lote);
+                BatchModels lot = new BatchModels();
+                lot.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
+                lot.Email = this.Reader["email"].ToString();
+                lot.DateOfCreation = Convert.ToDateTime(this.Reader["fech_Crea"].ToString());
+                lot.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
+                lot.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
+                lot.Position = this.Reader["posicion"].ToString();
+                lot.ActivedBatch = Convert.ToBoolean(this.Reader["bajalogica"]);
+                result.Add(lot);
             }
             this.Reader.Close();
             return result;
