@@ -16,16 +16,18 @@ namespace ApiAlmacen.Models
         public DateTime DateOfCreation { get; set; }
         public DateTime ShippingDate { get; set; }
         public int IDShipp { get; set; }
+        public string Position { get; set; }
         public bool ActivedBatch { get; set; }
 
         public void Save()
         {
-            try { 
-            this.Command.CommandText = $"INSERT INTO lote (email, fech_Crea, fech_Entre, id_Des, bajalogica) VALUES " +
+            try {
+                this.Command.CommandText = $"INSERT INTO lote (email, fech_Crea, fech_Entre, id_Des, posicion,bajalogica) VALUES " +
                 $"('{this.Email.ToString()}', " +
-                $"'{this.DateOfCreation.ToString("yyyy-MM-dd HH:mm:ss")}', " +
-                $"'{this.ShippingDate.ToString("yyyy-MM-dd HH:mm:ss")}'," +
-                $"{this.IDShipp}," +
+                $"'{this.DateOfCreation.ToString("yyyy-MM-dd")}', " +
+                $"'{this.ShippingDate.ToString("yyyy-MM-dd HH:mm:ss")}', " +
+                $"{this.IDShipp}, " +
+                $"'{this.Position}', " +
                 $"{this.ActivedBatch})";
                 this.Command.ExecuteNonQuery(); 
 
@@ -54,9 +56,10 @@ namespace ApiAlmacen.Models
                 BatchModels lote = new BatchModels();
                 lote.IDBatch = Int32.Parse(this.Reader["id_Lote"].ToString());
                 lote.Email = this.Reader["email"].ToString();
-                lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString());
+                lote.DateOfCreation = DateTime.Parse(this.Reader["fech_Crea"].ToString()).Date;
                 lote.ShippingDate = DateTime.Parse(this.Reader["fech_Entre"].ToString());
                 lote.IDShipp = Int32.Parse(this.Reader["id_Des"].ToString());
+                lote.Position = this.Reader["posicion"].ToString();
                 lote.ActivedBatch = Convert.ToBoolean(this.Reader["bajalogica"]);
                 result.Add(lote);
             }
@@ -67,7 +70,7 @@ namespace ApiAlmacen.Models
         {
             if (!CheckIfBatchExists(this.IDBatch))
             {
-                throw new ApplicationException($"El lote con ID {this.IDBatch} no existe, no se puede eliminar.");
+                throw new Exception($"El lote con ID {this.IDBatch} no existe, no se puede eliminar.");
             }
 
             this.Command.CommandText = $"DELETE FROM lote WHERE id_Lote = {this.IDBatch}";

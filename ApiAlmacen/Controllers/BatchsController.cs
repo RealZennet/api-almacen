@@ -53,6 +53,7 @@ namespace ApiAlmacen.Controllers
                 DateOfCreation = everyBatch.DateOfCreation,
                 ShippingDate = everyBatch.ShippingDate,
                 IDShipp = everyBatch.IDShipp,
+                Position = everyBatch.Position,
                 ActivedBatch = everyBatch.ActivedBatch
             });
             return Ok(batchView);
@@ -84,6 +85,7 @@ namespace ApiAlmacen.Controllers
                     DateOfCreation = batch.DateOfCreation,
                     ShippingDate = batch.ShippingDate,
                     IDShipp = batch.IDShipp,
+                    Position = batch.Position,
                     ActivedBatch = batch.ActivedBatch
                 };
                 return Ok(batchView);
