@@ -13,6 +13,7 @@ namespace ApiAlmacen.Models
 
         public void Save()
         {
+
             this.Command.CommandText = $"INSERT INTO integra (id_prod, id_lote) VALUES ({this.IDProduct}, {this.IDBatch})";
             this.Command.ExecuteNonQuery();
         }
@@ -23,7 +24,7 @@ namespace ApiAlmacen.Models
 
             if (this.Command == null)
             {
-                throw new Exception("Error de sistema");
+                throw new Exception("Error de sistema, reintente nuevamente");
             }
 
             this.Command.CommandText = $"SELECT * FROM integra";

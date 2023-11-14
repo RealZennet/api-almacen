@@ -32,9 +32,9 @@ namespace ApiAlmacen.Controllers
                 IntegratePackage.Save();
                 return Ok(showResult($"Producto {IntegratePackage.IDProduct} fue asignado correctamente al lote {IntegratePackage.IDBatch}"));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Error en el ingreso de datos, si el error persiste contacta a un desarrollador");
+                return BadRequest("Error : " + ex.Message);
             }
         }
 
